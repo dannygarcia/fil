@@ -7,6 +7,7 @@
 
 define(function () {
 
+
 	/*
 	*
 	* Options
@@ -15,13 +16,10 @@ define(function () {
 	* container	[dom]		-	<canvas> container.
 	* width		[num/str]	-	Canvas width. "auto" fits to container.
 	* height	[num/str]	-	Canvas height. "auto" fits to container.
-	*
-	* Example
-	* canvas.init({
-	*   container : document.getElementById('canvas')
-	* });
-	*
+	* resize	[bool]		-	Should the canvas width/height be reset
+	*							when the window is resized?
 	*/
+
 
 	// Default options and other predetermined variables.
 	var _options = {
@@ -34,6 +32,7 @@ define(function () {
 		_canvas = null,
 		_context = null,
 		_ratio = 1;
+
 
 	return {
 
@@ -96,7 +95,7 @@ define(function () {
 
 		/*
 		* Gets / Sets the canvas object context.
-		* @param [object] ctx	-	Canvas Context Object
+		* @param ctx [obj]	-	Canvas Context Object
 		*/
 		context : function (ctx) {
 
@@ -142,7 +141,8 @@ define(function () {
 		},
 
 
-		// Essentially resets everything to the state before this.init().
+		// Essentially resets everything
+		// to the state before this.init().
 		destroy : function () {
 
 			// Unbind resize.
@@ -170,5 +170,4 @@ define(function () {
 
 
 	};
-
 });
