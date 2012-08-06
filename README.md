@@ -1,12 +1,52 @@
-FIL
-=====
+# FIL – Front-end Interactive Libraries
 
-FIL: Front-end Interactive Libraries
+FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components.
 
-In progress... more to come.
+Each module is loosely coupled, built with [RequireJS](http://requirejs.org/docs/whyamd.html) on the AMD API and has no dependencies (other than require.js).
 
-License
-=======
+## Canvas.js
+
+The purpose of Canvas.js is as follows:
+
+  1. Quick and flexible method for embedding a `<canvas>` node.
+  2. Easy access to getting / setting the canvas context.
+  3. Help with small things like window resizing and pixel ratios.
+
+### Quick Start
+
+#### HTML
+	<div id="canvas"></div>
+
+#### JavaScript
+	require(["Canvas"], function (canvas) {
+		
+		canvas.init({
+			container : document.getElementById('canvas')
+		});
+		
+		var ctx = canvas.context();
+		// Do cool things with canvas here.
+		
+	});
+
+### Options
+
+	* context	[str]		-	Context type.
+	* container	[dom]		-	<canvas> container.
+	* width		[num/str]	-	Canvas width. "auto" fits to container.
+	* height	[num/str]	-	Canvas height. "auto" fits to container.
+	* resize	[bool]		-	Should the canvas width/height be reset when the window is resized?
+
+## To-do
+
+These modules are still left:
+
+ * Touch / Mouse Input
+ * requestAnimationFrame
+ * Canvas Drawing
+ * DOM Style Transformer
+ 
+##License
 
 FIL, and its associated libraries are freely distributable under the terms of the MIT license.
 
