@@ -1,14 +1,14 @@
-fihl
+FIL
 =====
 
-fihl: Front-end Interactive Helper Libraries
+FIL: Front-end Interactive Libraries
 
 In progress... more to come.
 
 License
 =======
 
-FIHL, and its associated libraries are freely distributable under the terms of the MIT license.
+FIL, and its associated libraries are freely distributable under the terms of the MIT license.
 
 Copyright (c) 2012, Danny Garcia. All rights reserved.
 
