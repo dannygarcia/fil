@@ -1,8 +1,6 @@
 # FIL – Front-end Interactive Libraries
 
-FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components.
-
-Each module is loosely coupled, built with [RequireJS](http://requirejs.org/docs/whyamd.html) on the AMD API and has no dependencies (other than require.js).
+FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components. Each module is loosely coupled, built with [RequireJS](http://requirejs.org/docs/whyamd.html) on the AMD API and has no dependencies (other than require.js).
 
 ## Canvas.js
 
