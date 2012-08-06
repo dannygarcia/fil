@@ -12,7 +12,7 @@ define(function () {
 	*
 	* Options
 	*
-	* Context	[str]		-	Context type.
+	* context	[str]		-	Context type.
 	* container	[dom]		-	<canvas> container.
 	* width		[num/str]	-	Canvas width. "auto" fits to container.
 	* height	[num/str]	-	Canvas height. "auto" fits to container.
