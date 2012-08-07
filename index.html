@@ -21,7 +21,8 @@
 			urlArgs : "cacheBust=" + (new Date()).getTime()
 		});
 
-		require(["Canvas"], function (canvas) {
+		require(["Canvas", "Input"], function (canvas, input) {
+
 			canvas.init({
 				container : document.getElementById('canvas')
 			});
@@ -30,6 +31,8 @@
 
 			ctx.fillStyle = 'navy';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+			input.init();
 
 		});
 	</script>

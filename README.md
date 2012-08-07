@@ -16,16 +16,19 @@ The purpose of Canvas.js is as follows:
 	<div id="canvas"></div>
 
 #### JavaScript
-	require(["Canvas"], function (canvas) {
-		
-		canvas.init({
-			container : document.getElementById('canvas')
+	<script data-main="src/" src="libs/require.js"></script>
+	<script>
+		require(["Canvas"], function (canvas) {
+
+			canvas.init({
+				container : document.getElementById('canvas')
+			});
+
+			var ctx = canvas.context();
+			// Do cool things with canvas here.
+
 		});
-		
-		var ctx = canvas.context();
-		// Do cool things with canvas here.
-		
-	});
+	</script>
 
 ### Options
 
@@ -43,7 +46,7 @@ These modules are still left:
  * requestAnimationFrame
  * Canvas Drawing
  * DOM Style Transformer
- 
+
 ##License
 
 FIL, and its associated libraries are freely distributable under the terms of the MIT license.
