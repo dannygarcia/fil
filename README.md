@@ -45,7 +45,9 @@ Input.js captures three basic input events (`touchstart/mousedown`, `touchmove/m
 ### Quick Start
 
 #### HTML
-	<div id="target"></div>
+```html
+<div id="target"></div>
+```
 
 #### JavaScript
 ```javascript
