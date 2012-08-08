@@ -13,22 +13,22 @@ The purpose of Canvas.js is as follows:
 ### Quick Start
 
 #### HTML
-	<div id="canvas"></div>
-
+```html
+<div id="canvas"></div>
+```
 #### JavaScript
-	<script data-main="src/" src="libs/require.js"></script>
-	<script>
-		require(["Canvas"], function (canvas) {
+```javascript
+require(["Canvas"], function (canvas) {
 
-			canvas.init({
-				container : document.getElementById('canvas')
-			});
+	canvas.init({
+		container : document.getElementById('canvas')
+	});
 
-			var ctx = canvas.context();
-			// Do cool things with canvas here.
+	var ctx = canvas.context();
+	// Do cool things with canvas here.
 
-		});
-	</script>
+});
+```
 
 ### Options
 
