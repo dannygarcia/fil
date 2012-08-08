@@ -23,8 +23,10 @@
 
 		require(["Canvas", "Input"], function (canvas, input) {
 
+			var canvasNode = document.getElementById('canvas');
+
 			canvas.init({
-				container : document.getElementById('canvas')
+				container : canvasNode
 			});
 
 			var ctx = canvas.context();
@@ -32,7 +34,22 @@
 			ctx.fillStyle = 'navy';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-			input.init();
+			input.init({
+				element : canvasNode,
+				preventDefault : true
+			});
+
+			input.ontapstart = function (average) {
+				console.log(average.x, average.y);
+			};
+
+			input.ontapmove = function (average) {
+				console.log(average.x, average.y);
+			};
+
+			input.ontapend = function (average) {
+				console.log(average.x, average.y);
+			};
 
 		});
 	</script>

@@ -32,11 +32,49 @@ The purpose of Canvas.js is as follows:
 
 ### Options
 
-	* context	[str]		-	Context type.
-	* container	[dom]		-	<canvas> container.
-	* width		[num/str]	-	Canvas width. "auto" fits to container.
-	* height	[num/str]	-	Canvas height. "auto" fits to container.
-	* resize	[bool]		-	Should the canvas width/height be reset when the window is resized?
+	context		[str]		-	Context type.
+	container	[dom]		-	<canvas> container.
+	width		[num/str]	-	Canvas width. "auto" fits to container.
+	height		[num/str]	-	Canvas height. "auto" fits to container.
+	resize		[bool]		-	Should the canvas width/height be reset when the window is resized?
+
+## Input.js
+
+Input.js captures three basic input events (`touchstart/mousedown`, `touchmove/mousemove`, `touchend/mouseup`) and provides simple function hooks. Each function passes two parameters, `average` (an averaged x/y object) and `inputs` (an array of all inputs).
+
+### Quick Start
+
+#### HTML
+	<div id="target"></div>
+
+#### JavaScript
+```javascript
+require(["Input"], function (input) {
+
+	input.init({
+		element : document.getElementById('target'),
+		preventDefault : true
+	});
+
+	input.ontapstart = function (average) {
+		console.log(average.x, average.y);
+	};
+
+	input.ontapmove = function (average) {
+		console.log(average.x, average.y);
+	};
+
+	input.ontapend = function (average) {
+		console.log(average.x, average.y);
+	};
+
+});
+```
+
+### Options
+
+	element			[dom]	-	DOM element to track input on.
+	preventDefault	[bool]	-	Should default event behavior be prevented?
 
 ## To-do
 
