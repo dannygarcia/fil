@@ -1,8 +1,8 @@
 /*
- * Canvas.js – Part of FIHL (The Front-end Interactive Helper Libraries)
+ * Canvas.js – Part of FIL (The Front-end Interactive Libraries)
  * Copyright (c) 2012, Danny Garcia. All rights reserved.
  * Code licensed under the MIT License
- * https://github.com/dannyx0/feihl/
+ * https://github.com/dannyx0/fil/
  */
 
 define(function () {
@@ -73,7 +73,7 @@ define(function () {
 
 
 		/*
-		* Gets / Sets canvas options.
+		* Gets / Sets module options.
 		* Does not initialize anything.
 		* @param newOptions [obj]	-	Options object.
 		*/
