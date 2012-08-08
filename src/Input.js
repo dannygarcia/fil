@@ -66,7 +66,6 @@ define(function () {
 		*/
 		init : function (userOptions) {
 
-
 			// Set user options.
 			if (typeof userOptions !== 'undefined') {
 				this.options(userOptions);
