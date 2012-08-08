@@ -10,22 +10,47 @@ define(function () {
 
 	/*
 	*
-	* Options
+	* Options:
 	*
-	* element	[dom]		-	DOM element to track input on.
-	* container	[dom]		-	<canvas> container.
-	* width		[num/str]	-	Canvas width. "auto" fits to container.
-	* height	[num/str]	-	Canvas height. "auto" fits to container.
-	* resize	[bool]		-	Should the canvas width/height be reset
-	*							when the window is resized?
+	* element			[dom]	-	DOM element to track input on.
+	* preventDefault	[bool]	-	Should default event behavior be prevented?
+	*
 	*/
 
 
 	// Default options and other predetermined variables.
 	var _options = {
-			element : document.body
+			element : document.body,
+			preventDefault : false
 		},
-		_touch = false;
+		_touch = false,
+		// Proxy pulled from jQuery
+		_pxy = function (fn, context) {
+			var tmp, args, proxy;
+
+			if ( typeof context === "string" ) {
+				tmp = fn[ context ];
+				context = fn;
+				fn = tmp;
+			}
+
+			// Quick check to determine if target is callable, in the spec
+			// this throws a TypeError, but we will just return undefined.
+			if ( typeof fn !== 'function' ) {
+				return undefined;
+			}
+
+			// Simulated bind
+			args = Array.prototype.slice.call( arguments, 2 );
+			proxy = function() {
+				return fn.apply( context, args.concat( Array.prototype.slice.call( arguments ) ) );
+			};
+
+			// Set the guid of unique handler to the same of original handler, so it can be removed
+			proxy.guid = fn.guid = fn.guid || proxy.guid;
+
+			return proxy;
+		};
 
 
 	return {
@@ -76,28 +101,154 @@ define(function () {
 		},
 
 
+		setCoordinates : function (e, type) {
+
+			if (_options.preventDefault) {
+				e.preventDefault();
+			}
+
+			var c = [],
+				sum = { x : 0, y : 0 };
+
+			if (_touch) {
+
+				// For each touch input, generate its coordinates.
+				for (var i = 0; i < e.touches.length; i++) {
+					c[i] = {
+						x : e.touches[i].pageX,
+						y : e.touches[i].pageY
+					};
+					// sum+=c[i];
+					sum.x+=c[i].x;
+					sum.y+=c[i].y;
+				}
+
+			} else {
+
+				// Regular Mouse Event Coordinates
+				c[0] = {
+					x : e.pageX,
+					y : e.pageY
+				};
+
+				sum = c[0];
+
+			}
+
+			// Update the inputs array.
+			this.inputs = c;
+
+			// Update the average value.
+			this.average = {
+				x : Math.ceil(sum.x / c.length),
+				y : Math.ceil(sum.y / c.length)
+			};
+
+		},
+
+
+		// NOTE: This can / should be optimized somehow so
+		// that only one method is called instead of three.
+		// They are called separately so we can pass the
+		// specific type to this.setCoordinates() easily.
 		bindAllInputs : function () {
-			this.bindHover();
-			this.bindTapDown();
-			this.bindTapUp();
-			this.bindTap();
+			this.bindTapStart();
+			this.bindTapMove();
+			this.bindTapEnd();
 		},
 
 
 		unbindAllInputs : function () {
-			this.unbindHover();
-			this.unbindTapDown();
-			this.unbindTapUp();
-			this.unbindTap();
+			this.unbindTapStart();
+			this.unbindTapMove();
+			this.unbindTapEnd();
 		},
 
 
-		bindMovement : function () {
+		/* ============================
+		* Tap / Click Down
+		* ========================== */
 
+		bindTapStart : function () {
+			var event = this.getEventType('start');
+			_options.element.addEventListener(event, _pxy(this.tapStart, this), false);
+		},
+
+		tapStart : function (e) {
+			this.setCoordinates(e, 'start');
+			this.ontapstart(this.average, this.inputs);
+		},
+
+		// This is the hook for the fired event.
+		ontapstart : function (average, inputs) {},
+
+		unbindTapStart : function () {
+			var event = this.getEventType('start');
+			_options.element.removeEventListener(event, _pxy(this.tapStart, this), false);
 		},
 
 
-		unbindMovement : function () {
+		/* ============================
+		* Tap / Click Move Over
+		* ========================== */
+
+		bindTapMove : function () {
+			var event = this.getEventType('move');
+			_options.element.addEventListener(event, _pxy(this.tapMove, this), false);
+		},
+
+		tapMove : function (e) {
+			this.setCoordinates(e, 'move');
+			this.ontapmove(this.average, this.inputs);
+		},
+
+		// This is the hook for the fired event.
+		ontapmove : function (average, inputs) {},
+
+		unbindTapMove : function () {
+			var event = this.getEventType('move');
+			_options.element.removeEventListener(event, _pxy(this.tapMove, this), false);
+		},
+
+
+		/* ============================
+		* Tap / Click Down
+		* ========================== */
+
+		bindTapEnd : function () {
+			var event = this.getEventType('end');
+			_options.element.addEventListener(event, _pxy(this.tapEnd, this), false);
+		},
+
+		tapEnd : function (e) {
+			this.setCoordinates(e, 'end');
+			this.ontapend(this.average, this.inputs);
+		},
+
+		// This is the hook for the fired event.
+		ontapend : function (average, inputs) {},
+
+		unbindTapEnd : function () {
+			var event = this.getEventType('end');
+			_options.element.removeEventListener(event, _pxy(this.tapEnd, this), false);
+		},
+
+
+		// Returns the appropriate event type
+		// based on whether or not it supports touch.
+		getEventType : function (type) {
+
+			var prefix = _touch ? 'touch' : 'mouse';
+
+			if (type === 'start' && !_touch) {
+				// Convert 'start' to 'down'
+				type = 'down';
+			} else if (type === 'end' && !_touch) {
+				// Convert 'end' to 'up'
+				type = 'up';
+			}
+
+			return prefix + type;
 
 		},
 
@@ -117,6 +268,7 @@ define(function () {
 		// to the state before this.init().
 		destroy : function () {
 
+			this.unbindAllInputs();
 
 		}
 
