@@ -1,8 +1,6 @@
 # FIL – Front-end Interactive Libraries
 
-FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components.
-
-Each module is loosely coupled, built with [RequireJS](http://requirejs.org/docs/whyamd.html) on the AMD API and has no dependencies (other than require.js).
+FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components. Each module is loosely coupled, built with [RequireJS](http://requirejs.org/docs/whyamd.html) on the AMD API and has no dependencies (other than require.js).
 
 ## Canvas.js
 
@@ -15,37 +13,79 @@ The purpose of Canvas.js is as follows:
 ### Quick Start
 
 #### HTML
-	<div id="canvas"></div>
-
+```html
+<div id="canvas"></div>
+```
 #### JavaScript
-	require(["Canvas"], function (canvas) {
-		
-		canvas.init({
-			container : document.getElementById('canvas')
-		});
-		
-		var ctx = canvas.context();
-		// Do cool things with canvas here.
-		
+```javascript
+require(["Canvas"], function (canvas) {
+
+	canvas.init({
+		container : document.getElementById('canvas')
 	});
+
+	var ctx = canvas.context();
+	// Do cool things with canvas here.
+
+});
+```
 
 ### Options
 
-	* context	[str]		-	Context type.
-	* container	[dom]		-	<canvas> container.
-	* width		[num/str]	-	Canvas width. "auto" fits to container.
-	* height	[num/str]	-	Canvas height. "auto" fits to container.
-	* resize	[bool]		-	Should the canvas width/height be reset when the window is resized?
+	context		[str]		-	Context type.
+	container	[dom]		-	<canvas> container.
+	width		[num/str]	-	Canvas width. "auto" fits to container.
+	height		[num/str]	-	Canvas height. "auto" fits to container.
+	resize		[bool]		-	Should the canvas width/height be reset when the window is resized?
+
+## Input.js
+
+Input.js captures three basic input events (`touchstart/mousedown`, `touchmove/mousemove`, `touchend/mouseup`) and provides simple function hooks. Each function passes two parameters, `average` (an averaged x/y object) and `inputs` (an array of all inputs).
+
+### Quick Start
+
+#### HTML
+```html
+<div id="target"></div>
+```
+
+#### JavaScript
+```javascript
+require(["Input"], function (input) {
+
+	input.init({
+		element : document.getElementById('target'),
+		preventDefault : true
+	});
+
+	input.ontapstart = function (average) {
+		console.log(average.x, average.y);
+	};
+
+	input.ontapmove = function (average) {
+		console.log(average.x, average.y);
+	};
+
+	input.ontapend = function (average) {
+		console.log(average.x, average.y);
+	};
+
+});
+```
+
+### Options
+
+	element			[dom]	-	DOM element to track input on.
+	preventDefault	[bool]	-	Should default event behavior be prevented?
 
 ## To-do
 
 These modules are still left:
 
- * Touch / Mouse Input
  * requestAnimationFrame
  * Canvas Drawing
  * DOM Style Transformer
- 
+
 ##License
 
 FIL, and its associated libraries are freely distributable under the terms of the MIT license.
