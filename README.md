@@ -10,6 +10,14 @@ The purpose of Canvas.js is as follows:
   2. Easy access to getting / setting the canvas context.
   3. Help with small things like window resizing and pixel ratios.
 
+### Options
+
+	context		[str]		-	Context type.
+	container	[dom]		-	<canvas> container.
+	width		[num/str]	-	Canvas width. "auto" fits to container.
+	height		[num/str]	-	Canvas height. "auto" fits to container.
+	resize		[bool]		-	Should the canvas width/height be reset when the window is resized?
+
 ### Quick Start
 
 #### HTML
@@ -30,17 +38,14 @@ require(["Canvas"], function (canvas) {
 });
 ```
 
-### Options
-
-	context		[str]		-	Context type.
-	container	[dom]		-	<canvas> container.
-	width		[num/str]	-	Canvas width. "auto" fits to container.
-	height		[num/str]	-	Canvas height. "auto" fits to container.
-	resize		[bool]		-	Should the canvas width/height be reset when the window is resized?
-
 ## Input.js
 
 Input.js captures three basic input events (`touchstart/mousedown`, `touchmove/mousemove`, `touchend/mouseup`) and provides simple function hooks. Each function passes two parameters, `average` (an averaged x/y object) and `inputs` (an array of all inputs).
+
+### Options
+
+	element			[dom]	-	DOM element to track input on.
+	preventDefault	[bool]	-	Should default event behavior be prevented?
 
 ### Quick Start
 
@@ -72,11 +77,6 @@ require(["Input"], function (input) {
 
 });
 ```
-
-### Options
-
-	element			[dom]	-	DOM element to track input on.
-	preventDefault	[bool]	-	Should default event behavior be prevented?
 
 ## To-do
 
