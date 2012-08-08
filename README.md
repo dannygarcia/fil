@@ -82,7 +82,6 @@ require(["Input"], function (input) {
 
 These modules are still left:
 
- * Touch / Mouse Input
  * requestAnimationFrame
  * Canvas Drawing
  * DOM Style Transformer
