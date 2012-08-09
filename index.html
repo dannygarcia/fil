@@ -21,7 +21,7 @@
 			urlArgs : "cacheBust=" + (new Date()).getTime()
 		});
 
-		require(["Canvas", "Input"], function (canvas, input) {
+		require(["Canvas", "Input", "Pen", "Frame"], function (canvas, input, pen, frame) {
 
 			var canvasNode = document.getElementById('canvas');
 
@@ -31,24 +31,38 @@
 
 			var ctx = canvas.context();
 
-			ctx.fillStyle = 'navy';
+			ctx.fillStyle = '#EA2E49';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.fillStyle = ctx.strokeStyle = 'rgba(218,237,226,0.5)';
+
+			pen.context(ctx);
 
 			input.init({
 				element : canvasNode,
 				preventDefault : true
 			});
 
+			frame.start();
+
+			var prev = {},
+				curr = {};
+
 			input.ontapstart = function (average) {
-				console.log(average.x, average.y);
+				pen.circle(average, 10);
 			};
 
 			input.ontapmove = function (average) {
-				console.log(average.x, average.y);
+				pen.circle(average, 5);
+				curr = average;
 			};
 
 			input.ontapend = function (average) {
-				console.log(average.x, average.y);
+				pen.circle(average, 20);
+			};
+
+			frame.step = function (f) {
+				pen.line(prev, curr);
+				prev = curr;
 			};
 
 		});
