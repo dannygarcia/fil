@@ -2,6 +2,8 @@
 
 FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components. Each module is loosely coupled, built with [RequireJS](http://requirejs.org/docs/whyamd.html) on the AMD API and has no dependencies (other than require.js).
 
+[Check out a quick example](http://dannyx0.github.com/fil/)!
+
 ## Components
 
 * [Canvas.js](https://github.com/dannyx0/fil/wiki/Canvas.js) – [source](https://github.com/dannyx0/fil/blob/master/src/Canvas.js)
