@@ -8,59 +8,10 @@
 define(function () {
 
 
-	/*
-	*
-	* Options:
-	*
-	* val	[type]	-	Description.
-	*
-	*/
-
-
-	// Default options and other predetermined variables.
-	var _options = {
-		};
-
-
 	return {
 
 
 		ctx : null,
-
-
-		/*
-		* Initializes the module with a container.
-		* @param userOptions [obj]	-	Options object (see above).
-		*/
-		init : function (userOptions) {
-
-			// Set user options.
-			if (typeof userOptions !== 'undefined') {
-				this.options(userOptions);
-			}
-
-		},
-
-
-		/*
-		* Gets / Sets module options.
-		* Does not initialize anything.
-		* @param newOptions [obj]	-	Options object.
-		*/
-		options : function (newOptions) {
-
-			if (typeof newOptions === 'undefined') {
-				return _options;
-			}
-
-			// Check customized options and set them.
-			for (var option in _options) {
-				if (_options.hasOwnProperty(option) && typeof newOptions[option] !== 'undefined') {
-					_options[option] = newOptions[option];
-				}
-			}
-
-		},
 
 
 		/*
@@ -94,6 +45,7 @@ define(function () {
 			ctx.moveTo(from.x, from.y);
 			ctx.lineTo(to.x, to.y);
 			ctx.stroke();
+			ctx = null;
 		},
 
 
@@ -108,6 +60,7 @@ define(function () {
 			ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2, true);
 			ctx.closePath();
 			ctx.fill();
+			ctx = null;
 		},
 
 

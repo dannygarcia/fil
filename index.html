@@ -31,7 +31,7 @@
 
 			var ctx = canvas.context();
 
-			ctx.fillStyle = '#EA2E49';
+			ctx.fillStyle = 'rgba(234, 46, 73, 1)';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 			ctx.fillStyle = ctx.strokeStyle = 'rgba(218,237,226,0.5)';
 
@@ -52,7 +52,6 @@
 			};
 
 			input.ontapmove = function (average) {
-				pen.circle(average, 5);
 				curr = average;
 			};
 
@@ -61,6 +60,7 @@
 			};
 
 			frame.step = function (f) {
+				pen.circle(curr, 5);
 				pen.line(prev, curr);
 				prev = curr;
 			};
