@@ -13,8 +13,6 @@ FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of
 
 These modules are still left:
 
- * requestAnimationFrame
- * Canvas Drawing
  * DOM Style Transformer
 
 ##License
