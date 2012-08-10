@@ -21,7 +21,7 @@ These modules are still left:
  * ~~Canvas Drawing~~
  * DOM Style Transformer
 
-##License
+##MIT License
 
 FIL, and its associated libraries are freely distributable under the terms of the MIT license.
 
