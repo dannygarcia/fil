@@ -13,59 +13,20 @@
 </head>
 <body><div id="canvas"></div>
 
-	<script data-main="src/" src="libs/require.js"></script>
+	<script src="libs/require.js"></script>
 	<script>
 
-		// Development
-		require.config({
-			urlArgs : "cacheBust=" + (new Date()).getTime()
-		});
+        require.config({
+			urlArgs : "cacheBust=" + (new Date()).getTime(),
+            paths: {
+                //Comment out this line to go back to loading
+                //the non-optimized main.js source file.
+                "src/main": "main-built"
+            }
+        });
 
-		require(["Canvas", "Input", "Pen", "Frame"], function (canvas, input, pen, frame) {
+        require(["src/main"]);
 
-			var canvasNode = document.getElementById('canvas');
-
-			canvas.init({
-				container : canvasNode
-			});
-
-			var ctx = canvas.context();
-
-			ctx.fillStyle = 'rgba(234, 46, 73, 1)';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-			ctx.fillStyle = ctx.strokeStyle = 'rgba(218,237,226,0.5)';
-
-			pen.context(ctx);
-
-			input.init({
-				element : canvasNode,
-				preventDefault : true
-			});
-
-			frame.start();
-
-			var prev = {},
-				curr = {};
-
-			input.ontapstart = function (average) {
-				pen.circle(average, 10);
-			};
-
-			input.ontapmove = function (average) {
-				curr = average;
-			};
-
-			input.ontapend = function (average) {
-				pen.circle(average, 20);
-			};
-
-			frame.step = function (f) {
-				pen.circle(curr, 5);
-				pen.line(prev, curr);
-				prev = curr;
-			};
-
-		});
 	</script>
 
 </body>

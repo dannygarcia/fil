@@ -72,13 +72,6 @@ define(function () {
 				window.cancelAnimationFrame(this.request);
 			}
 
-		},
-
-
-		// Essentially resets everything
-		// to the state before this.init().
-		destroy : function () {
-
 		}
 
 
