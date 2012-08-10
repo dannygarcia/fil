@@ -23,6 +23,7 @@ define(function () {
 			element : document.body,
 			preventDefault : false
 		},
+		_ratio = 1,
 		_touch = false,
 		// Proxy pulled from jQuery
 		_pxy = function (fn, context) {
@@ -65,6 +66,11 @@ define(function () {
 		* @param userOptions [obj]	-	Options object (see above).
 		*/
 		init : function (userOptions) {
+
+			// Update the device pixel ratio accordingly.
+			if (typeof window.devicePixelRatio !== 'undefined') {
+				_ratio = window.devicePixelRatio;
+			}
 
 			// Set user options.
 			if (typeof userOptions !== 'undefined') {
@@ -114,8 +120,8 @@ define(function () {
 				// For each touch input, generate its coordinates.
 				for (var i = 0; i < e.touches.length; i++) {
 					c[i] = {
-						x : e.touches[i].pageX,
-						y : e.touches[i].pageY
+						x : e.touches[i].pageX * _ratio,
+						y : e.touches[i].pageY * _ratio
 					};
 					// sum+=c[i];
 					sum.x+=c[i].x;
@@ -126,8 +132,8 @@ define(function () {
 
 				// Regular Mouse Event Coordinates
 				c[0] = {
-					x : e.pageX,
-					y : e.pageY
+					x : e.pageX * _ratio,
+					y : e.pageY * _ratio
 				};
 
 				sum = c[0];
