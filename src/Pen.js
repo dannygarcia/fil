@@ -45,7 +45,6 @@ define(function () {
 			ctx.moveTo(from.x, from.y);
 			ctx.lineTo(to.x, to.y);
 			ctx.stroke();
-			ctx = null;
 		},
 
 
@@ -60,14 +59,6 @@ define(function () {
 			ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2, true);
 			ctx.closePath();
 			ctx.fill();
-			ctx = null;
-		},
-
-
-		// Essentially resets everything
-		// to the state before this.init().
-		destroy : function () {
-
 		}
 
 
