@@ -1,5 +1,9 @@
-require(["src/Canvas", "src/Input", "src/Pen", "src/Frame"], function (canvas, input, pen, frame) {
+require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], function (canvas, input, pen, frame, tr) {
 	var canvasNode = document.getElementById('canvas');
+
+	tr.transform(canvasNode, {
+		translateX: '10px'
+	});
 
 	canvas.init({
 		container : canvasNode
@@ -13,10 +17,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame"], function (canvas, i
 
 	pen.context(ctx);
 
-	input.init({
-		element : canvasNode,
-		preventDefault : true
-	});
+	input.init();
 
 	frame.start();
 
