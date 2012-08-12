@@ -7,10 +7,12 @@
 
 define(function () {
 
+	// Contains method borrowed from Modernizr
 	this._contains = function contains( str, substr ) {
 		return !!~('' + str).indexOf(substr);
 	};
 
+	// Prefixing method borrowed from Modernizr
 	this._prefixed = function (prop, style) {
 
 		var prefixes = 'Webkit Moz O ms'.split(' '),
