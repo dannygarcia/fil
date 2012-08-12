@@ -10,16 +10,12 @@ FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of
 * [Input.js](https://github.com/dannyx0/fil/wiki/Input.js) captures and normalizes mouse & touch inputs. [View Source](https://github.com/dannyx0/fil/blob/master/src/Input.js)
 * [Pen.js](https://github.com/dannyx0/fil/wiki/Pen.js) helps with drawing lines, cirlces and other shapes in canvas. [View Source](https://github.com/dannyx0/fil/blob/master/src/Pen.js)
 * [Frame.js](https://github.com/dannyx0/fil/wiki/Frame.js) is a simple polyfill for `window.requestAnimationFrame`. [View Source](https://github.com/dannyx0/fil/blob/master/src/Frame.js)
+* [Transformer.js](https://github.com/dannyx0/fil/wiki/Transformer.js) simplifies CSS transformations in JavaScript. [View Source](https://github.com/dannyx0/fil/blob/master/src/Transformer.js)
 
 ## To-do
 
-These modules are still left:
-
- * ~~Canvas Helper~~
- * ~~Touch / Mouse Input~~
- * ~~requestAnimationFrame~~
- * ~~Canvas Drawing~~
- * DOM Style Transformer
+ * Add Testing
+ * Add more drawing features to Pen.js
 
 ##MIT License
 

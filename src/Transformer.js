@@ -59,6 +59,23 @@ define(function () {
 
 			el.style[_prefixed('transform', el.style)] = transformation;
 
+		},
+
+		/*
+		* Transforms the origin of the given element.
+		* @param el [dom]		-	Dom element to originTransform.
+		* @param origin [obj]	-	X / Y origin object.
+		*/
+		transformOrigin : function (el, originX, originY) {
+
+			if (typeof el === 'undefined') {
+				el = this.el;
+			}
+
+			this.el = el;
+
+			el.style[_prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
+
 		}
 
 
