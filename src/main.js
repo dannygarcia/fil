@@ -14,22 +14,69 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 	var buildGithubTree = function () {
 
-		var self = this;
+		var self = this,
+			distance = 70;
 
 		this.struct = [];
 
-		this.drawNode = function (item, parent) {
-			if (parent) {
-				item.pos = {
-					x : parent.item.pos.x + Math.random() * 100,
-					y : parent.item.pos.y + Math.random() * 100
-				};
-			} else {
-				item.pos = {
-					x : Math.floor(Math.random() * (canvas.width - 0 + 1)) + 0,
-					y : Math.floor(Math.random() * (canvas.height - 0 + 1)) + 0
-				};
+		this.update = function () {
+
+			this.changePosition(this.struct);
+			this.drawTree(this.struct);
+
+		};
+
+		this.changePosition = function (items) {
+			for (var i = 0; i < items.length; i++) {
+
+				items[i].item.pos.x += items[i].item.pos._x;
+				items[i].item.pos.y += items[i].item.pos._y;
+
+				items[i].parent.item.pos.x += items[i].parent.item.pos._x;
+				items[i].parent.item.pos.y += items[i].parent.item.pos._y;
+
+				if (items[i].children) {
+					self.changePosition(items[i].children);
+				}
 			}
+		};
+
+		this.drawTree = function (items) {
+			for (var i = 0; i < items.length; i++) {
+
+				var node = items[i];
+
+				pen.line(node.item.pos, node.parent.item.pos);
+				pen.circle(node.item.pos, node.item.type === 'dir' ? 10 : 5);
+
+				if (node.children) {
+					self.drawTree(node.children);
+				}
+
+				item = null;
+
+			}
+		};
+
+		this.drawNode = function (item, parent) {
+
+			item.pos = {
+				x : parent.item.pos.x + (Math.random()  * distance),
+				y : parent.item.pos.y + (Math.random()  * distance),
+				_x : 1 * (Math.random() < 0.5 ? -1 : 1),
+				_y : 1 * (Math.random() < 0.5 ? -1 : 1)
+			};
+
+			if (Math.random() < 0.5) {
+				item.pos.x -= distance;
+			}
+
+			if (Math.random() < 0.5) {
+				item.pos.y -= distance;
+			}
+
+			pen.stroke('#ff0000');
+			// pen.line(item.pos, parent.item.pos);
 			pen.circle(item.pos, item.type === 'dir' ? 10 : 5);
 
 		};
@@ -59,10 +106,6 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 				this.drawNode(array[i].item, parent);
 
-				if (array[i].parent) {
-					pen.line(array[i].item.pos, array[i].parent.item.pos);
-				}
-
 			}
 
 		};
@@ -72,7 +115,9 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 				item : {
 					pos : {
 						x : canvas.width / 2,
-						y : canvas.height / 2
+						y : canvas.height / 2,
+						_x : 2 * (Math.random() < 0.5 ? -1 : 1),
+						_y : 2 * (Math.random() < 0.5 ? -1 : 1)
 					}
 				}
 			});
@@ -124,16 +169,14 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		// 	pen.circle(average, 10);
 		// };
 
-		var nodes = [],
-			tree = new buildGithubTree();
+		var tree = new buildGithubTree();
 
-		// frame.start();
+		frame.start();
 		frame.step = function (f) {
 
-			for (var i = 0; i < nodes.length; i++) {
-				nodes[i].prev = nodes[i - 1];
-				nodes[i].draw();
-			}
+			canvas.clear();
+
+			tree.update();
 
 			prev = curr;
 

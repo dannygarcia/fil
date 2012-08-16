@@ -34,6 +34,20 @@ define(function () {
 		},
 
 
+		stroke : function (color, width) {
+			var ctx = this.context();
+
+			if (color) {
+				ctx.strokeStyle = color;
+			}
+
+			if (width) {
+				ctx.lineWidth(width);
+			}
+
+		},
+
+
 		/*
 		* Draws a simple line.
 		* @param from [object]	-	Holds x & y from coordinates.
