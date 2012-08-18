@@ -34,6 +34,14 @@ define(function () {
 		},
 
 
+		fill : function (color) {
+			var ctx = this.context();
+
+			ctx.fillStyle = color;
+
+		},
+
+
 		stroke : function (color, width) {
 			var ctx = this.context();
 

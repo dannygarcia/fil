@@ -17,7 +17,14 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		var self = this,
 			distance = 70;
 
+		this.level = 0;
 		this.struct = [];
+
+		this.distance = function (f, t) {
+			var dx = f.x - t.x,
+				dy = f.y - t.y;
+			return Math.sqrt( dx * dx + dy * dy );
+		};
 
 		this.update = function () {
 
@@ -26,19 +33,49 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 		};
 
+		this.setItemPosition = function (item, pos) {
+			var self = this;
+			item.pos = {
+				x : pos.x,
+				y : pos.y,
+				_x : (5) * (Math.random() < 0.5 ? -1 : 1),
+				_y : (5) * (Math.random() < 0.5 ? -1 : 1),
+				level : self.level
+			};
+			return item;
+		};
+
 		this.changePosition = function (items) {
-			for (var i = 0; i < items.length; i++) {
 
-				items[i].item.pos.x += items[i].item.pos._x;
-				items[i].item.pos.y += items[i].item.pos._y;
+			var item,
+				parent,
+				i;
 
-				items[i].parent.item.pos.x += items[i].parent.item.pos._x;
-				items[i].parent.item.pos.y += items[i].parent.item.pos._y;
+			for (i = 0; i < items.length; i++) {
+
+				item = items[i].item;
+				parent = items[i].parent.item;
+
+				if (!item.pos) {
+					self.setItemPosition(item, parent.pos);
+				}
+
+				if (this.distance(item.pos, parent.pos) <= 50) {
+					item.pos.x += item.pos._x + parent.pos._x;
+					item.pos.y += item.pos._y + parent.pos._y;
+				}
 
 				if (items[i].children) {
+					self.level += 1;
 					self.changePosition(items[i].children);
 				}
 			}
+
+			// this.drawTree(items);
+
+			item = null;
+			parent = null;
+			i = null;
 		};
 
 		this.drawTree = function (items) {
@@ -46,8 +83,12 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 				var node = items[i];
 
-				pen.line(node.item.pos, node.parent.item.pos);
-				pen.circle(node.item.pos, node.item.type === 'dir' ? 10 : 5);
+				if (node.item.pos) {
+					pen.stroke('rgb(' + (node.item.pos.level) + ',0,0)');
+					pen.fill('rgb(' + (node.item.pos.level * 2) + ',0,0)');
+					pen.line(node.item.pos, node.parent.item.pos);
+					pen.circle(node.item.pos, node.item.type === 'dir' ? 10 : 5);
+				}
 
 				if (node.children) {
 					self.drawTree(node.children);
@@ -58,31 +99,8 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			}
 		};
 
-		this.drawNode = function (item, parent) {
-
-			item.pos = {
-				x : parent.item.pos.x + (Math.random()  * distance),
-				y : parent.item.pos.y + (Math.random()  * distance),
-				_x : 1 * (Math.random() < 0.5 ? -1 : 1),
-				_y : 1 * (Math.random() < 0.5 ? -1 : 1)
-			};
-
-			if (Math.random() < 0.5) {
-				item.pos.x -= distance;
-			}
-
-			if (Math.random() < 0.5) {
-				item.pos.y -= distance;
-			}
-
-			pen.stroke('#ff0000');
-			// pen.line(item.pos, parent.item.pos);
-			pen.circle(item.pos, item.type === 'dir' ? 10 : 5);
-
-		};
-
 		this.addBranch = function (array, item) {
-			ajax(item._links.self, function (data) {
+			ajax(item._links.self + '?cacheBust=' + (new Date()).getTime(), function (data) {
 				self.processTree(array.children, data, array);
 			});
 		};
@@ -104,20 +122,21 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 				array[i].parent = parent ? parent : false;
 
-				this.drawNode(array[i].item, parent);
-
 			}
 
 		};
 
-		ajax('https://api.github.com/repos/dannyx0/danny-garcia/contents/', function (data) {
+
+
+		ajax('https://api.github.com/repos/dannyx0/danny-garcia/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
 			self.processTree(self.struct, data, {
 				item : {
 					pos : {
 						x : canvas.width / 2,
 						y : canvas.height / 2,
-						_x : 2 * (Math.random() < 0.5 ? -1 : 1),
-						_y : 2 * (Math.random() < 0.5 ? -1 : 1)
+						_x : 0,
+						_y : 0,
+						level : 0
 					}
 				}
 			});
