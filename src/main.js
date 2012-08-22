@@ -15,10 +15,12 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 	var buildGithubTree = function () {
 
 		var self = this,
-			distance = 70;
+			distance = 70,
+			rad = 10;
 
 		this.level = 0;
 		this.struct = [];
+		this.c = {};
 
 		this.distance = function (f, t) {
 			var dx = f.x - t.x,
@@ -26,8 +28,8 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			return Math.sqrt( dx * dx + dy * dy );
 		};
 
-		this.update = function () {
-
+		this.update = function (c) {
+			this.c = c;
 			this.changePosition(this.struct);
 			this.drawTree(this.struct);
 
@@ -35,6 +37,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 		this.setItemPosition = function (item, pos) {
 			var self = this;
+
 			item.pos = {
 				x : pos.x,
 				y : pos.y,
@@ -78,12 +81,28 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			i = null;
 		};
 
+		this.showToolTip = function (c) {
+
+			// DO MAGICAL STUFF HERE
+
+		};
+
 		this.drawTree = function (items) {
 			for (var i = 0; i < items.length; i++) {
 
 				var node = items[i];
 
 				if (node.item.pos) {
+
+					if (typeof this.c.x !== 'undefined' && typeof this.c.y !== 'undefined') {
+
+						if ((this.c.x > node.item.pos.x - rad && this.c.x < node.item.pos.x + rad) && (this.c.y > node.item.pos.y - rad && this.c.y < node.item.pos.y + rad)) {
+							this.showToolTip(node.item.pos);
+							pen.circle(node.item.pos, 50);
+						}
+
+					}
+
 					pen.stroke('rgb(' + (node.item.pos.level) + ',0,0)');
 					pen.fill('rgb(' + (node.item.pos.level * 2) + ',0,0)');
 					pen.line(node.item.pos, node.parent.item.pos);
@@ -180,9 +199,9 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		// 	pen.circle(average, 10);
 		// };
 
-		// input.ontapmove = function (average) {
-		// 	curr = average;
-		// };
+		input.ontapmove = function (average) {
+			curr = average;
+		};
 
 		// input.ontapend = function (average) {
 		// 	pen.circle(average, 10);
@@ -195,12 +214,12 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			canvas.clear();
 
-			tree.update();
+			tree.update(curr);
 
-			prev = curr;
+			// prev = curr;
 
-			if (f > 60) {
-				frame.stop();
+			if (f > 120) {
+				// frame.stop();
 			}
 
 		};
