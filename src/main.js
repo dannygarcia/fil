@@ -32,7 +32,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 		this.update = function (c) {
 			this.c = c;
-			this.changePosition(this.struct);
+			this.changePosition(this.struct, true);
 			this.drawTree(this.struct);
 
 		};
@@ -50,11 +50,15 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			return item;
 		};
 
-		this.changePosition = function (items) {
+		this.changePosition = function (items, first) {
 
 			var item,
 				parent,
 				i;
+
+			if (first) {
+				self.level = 0;
+			}
 
 			for (i = 0; i < items.length; i++) {
 
@@ -92,7 +96,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			this.el.textContent = item.name;
 			this.el.textContent +=  (item.type === "dir") ? '/' : '';
-			this.el.style.backgroundColor = 'rgb(' + (item.pos.level * 2) + ',0,0)';
+			this.el.style.backgroundColor = 'rgb(' + (255 / item.pos.level) + ',0,0)';
 
 			tr.transform(this.el, {
 				translateX : c.x + 'px',
@@ -116,8 +120,8 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 					}
 
-					pen.stroke('rgb(' + (node.item.pos.level) + ',0,0)');
-					pen.fill('rgb(' + (node.item.pos.level * 2) + ',0,0)');
+					pen.stroke('rgb(' + Math.ceil((node.item.pos.level / self.level) * 255) + ',0,0)');
+					pen.fill('rgb(' + Math.ceil((node.item.pos.level / self.level) * 255) + ',0,0)');
 					pen.line(node.item.pos, node.parent.item.pos);
 					pen.circle(node.item.pos, node.item.type === 'dir' ? 10 : 5);
 				}
@@ -212,11 +216,14 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		}, false);
 
 		// Start tracking mouse input on the whole doc.
-		input.init();
+		input.init({
+			ratio : false
+		});
 
 		// Initialize the canvas.
 		canvas.init({
-			container : canvasEl
+			container : canvasEl,
+			ratio : false
 		});
 
 		// Prep the context.

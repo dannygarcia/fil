@@ -27,7 +27,8 @@ define(function () {
 			container : document.body,
 			width : "auto",
 			height : "auto",
-			resize : false
+			resize : false,
+			ratio : true
 		},
 		_canvas = null,
 		_context = null,
@@ -47,14 +48,14 @@ define(function () {
 		*/
 		init : function (userOptions) {
 
-			// Update the device pixel ratio accordingly.
-			if (typeof window.devicePixelRatio !== 'undefined') {
-				_ratio = window.devicePixelRatio;
-			}
-
 			// Set user options.
 			if (typeof userOptions !== 'undefined') {
 				this.options(userOptions);
+			}
+
+			// Update the device pixel ratio accordingly.
+			if (typeof window.devicePixelRatio !== 'undefined' && _options.ratio) {
+				_ratio = window.devicePixelRatio;
 			}
 
 			// Append a <canvas> node to the container.
