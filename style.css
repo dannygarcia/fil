@@ -64,6 +64,39 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 
+input,
+input:invalid {
+  border: none;
+  background: gray;
+  padding: 10px;
+  margin-right: 5px;
+  color: white;
+}
+
+input[type="submit"] {
+  background: blue;
+}
+
+input:focus {
+  outline: none;
+}
+
+h1 {
+  color: gray;
+  font-size: 22px;
+}
+
+h1 a,
+h1 a:visited {
+  font-size: 28px;
+  color: blue;
+  text-decoration: none;
+}
+
+h1 a:hover,
+h1 a:visited:hover {
+  border-bottom: 1px solid blue;
+}
 
 #canvas, canvas {
 	display: block;
@@ -81,6 +114,12 @@ td { vertical-align: top; }
   position: fixed;
   top: 0;
   left: 0;
+  font-size: 14px;
+  background: #FF0000;
+  color: white;
+  padding: 0 5px;
+
+  -webkit-transition: all 250ms ease-out;
 }
 
 

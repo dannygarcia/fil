@@ -12,11 +12,11 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		};
 	};
 
-	var buildGithubTree = function () {
+	var buildGithubTree = function (repo) {
 
 		var self = this,
 			distance = 70,
-			rad = 10;
+			rad = 20;
 
 		this.level = 0;
 		this.struct = [];
@@ -82,14 +82,16 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			i = null;
 		};
 
-		this.showToolTip = function (c) {
+		this.showToolTip = function (c, item) {
 
 			c.x = Math.ceil(c.x);
 			c.y = Math.ceil(c.y);
 
 			pen.circle(c, 12);
 
-			this.el.textContent = c.x + ', ' + c.y;
+			this.el.textContent = item.name;
+			this.el.textContent +=  (item.type === "dir") ? '/' : '';
+			this.el.style.backgroundColor = 'rgb(' + (item.pos.level * 2) + ',0,0)';
 
 			tr.transform(this.el, {
 				translateX : c.x + 'px',
@@ -108,7 +110,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 					if (typeof this.c.x !== 'undefined' && typeof this.c.y !== 'undefined') {
 
 						if ((this.c.x > node.item.pos.x - rad && this.c.x < node.item.pos.x + rad) && (this.c.y > node.item.pos.y - rad && this.c.y < node.item.pos.y + rad)) {
-							this.showToolTip(node.item.pos);
+							this.showToolTip(node.item.pos, node.item);
 						}
 
 					}
@@ -155,9 +157,11 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 		};
 
+		if (typeof repo === 'undefined') {
+			repo = 'dannyx0/fil';
+		}
 
-
-		ajax('https://api.github.com/repos/dannyx0/danny-garcia/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
+		ajax('https://api.github.com/repos/' + repo + '/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
 			self.processTree(self.struct, data, {
 				item : {
 					pos : {
@@ -187,7 +191,24 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 	var init = function () {
 
-		var canvasEl = document.getElementById('canvas');
+		var canvasEl = document.getElementById('canvas'),
+			form = document.getElementById('form'),
+			tree,
+			hash = false;
+
+		form.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			var user = document.getElementById('user').value,
+				repo = document.getElementById('repo').value,
+				dir = user + '/' + repo;
+
+			tree = new buildGithubTree(dir);
+
+			// set url
+			window.location.hash = dir;
+
+		}, false);
 
 		// Start tracking mouse input on the whole doc.
 		input.init();
@@ -217,7 +238,15 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		//	pen.circle(average, 10);
 		// };
 
-		var tree = new buildGithubTree();
+		if (window.location.hash) {
+			hash = window.location.hash.replace('#', '');
+			tree = new buildGithubTree(hash);
+			document.getElementById('user').value = hash.split('/')[0];
+			document.getElementById('repo').value = hash.split('/')[1];
+		} else {
+			tree = new buildGithubTree();
+		}
+
 
 		frame.start();
 		frame.step = function (f) {
