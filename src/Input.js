@@ -21,7 +21,8 @@ define(function () {
 	// Default options and other predetermined variables.
 	var _options = {
 			element : document.body,
-			preventDefault : false
+			preventDefault : false,
+			ratio : true
 		},
 		_ratio = 1,
 		_touch = false,
@@ -67,14 +68,14 @@ define(function () {
 		*/
 		init : function (userOptions) {
 
-			// Update the device pixel ratio accordingly.
-			if (typeof window.devicePixelRatio !== 'undefined') {
-				_ratio = window.devicePixelRatio;
-			}
-
 			// Set user options.
 			if (typeof userOptions !== 'undefined') {
 				this.options(userOptions);
+			}
+
+			// Update the device pixel ratio accordingly.
+			if (typeof window.devicePixelRatio !== 'undefined' && _options.ratio) {
+				_ratio = window.devicePixelRatio;
 			}
 
 			// Check touch support.
