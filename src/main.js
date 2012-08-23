@@ -161,7 +161,12 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			repo = 'dannyx0/fil';
 		}
 
-		ajax('https://api.github.com/repos/' + repo + '/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
+		var url = 'http://pipes.yahoo.com/pipes/pipe.run?_id=480c9c3b3ead7bacaac4c8ffdc67827a&_render=json&str=' + repo;
+		url += '/contents/?cacheBust=' + (new Date()).getTime();
+		console.log(url);
+		ajax(url, function (data) {
+			data = data.value.items[0].json;
+			console.log(data);
 			self.processTree(self.struct, data, {
 				item : {
 					pos : {
