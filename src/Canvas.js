@@ -141,6 +141,12 @@ define(function () {
 		},
 
 
+		// Clears the canvas.
+		clear : function () {
+			context.clearRect (0, 0, this.width, this.height);
+		},
+
+
 		// Essentially resets everything
 		// to the state before this.init().
 		destroy : function () {
