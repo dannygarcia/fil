@@ -21,6 +21,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		this.level = 0;
 		this.struct = [];
 		this.c = {};
+		this.el = document.getElementById('tooltip');
 
 		this.distance = function (f, t) {
 			var dx = f.x - t.x,
@@ -83,7 +84,17 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 		this.showToolTip = function (c) {
 
-			// DO MAGICAL STUFF HERE
+			c.x = Math.ceil(c.x);
+			c.y = Math.ceil(c.y);
+
+			pen.circle(c, 12);
+
+			this.el.textContent = c.x + ', ' + c.y;
+
+			tr.transform(this.el, {
+				translateX : c.x + 'px',
+				translateY : c.y + 'px'
+			});
 
 		};
 
@@ -98,7 +109,6 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 						if ((this.c.x > node.item.pos.x - rad && this.c.x < node.item.pos.x + rad) && (this.c.y > node.item.pos.y - rad && this.c.y < node.item.pos.y + rad)) {
 							this.showToolTip(node.item.pos);
-							pen.circle(node.item.pos, 50);
 						}
 
 					}
@@ -196,7 +206,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			curr = {};
 
 		// input.ontapstart = function (average) {
-		// 	pen.circle(average, 10);
+		//	pen.circle(average, 10);
 		// };
 
 		input.ontapmove = function (average) {
@@ -204,7 +214,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		};
 
 		// input.ontapend = function (average) {
-		// 	pen.circle(average, 10);
+		//	pen.circle(average, 10);
 		// };
 
 		var tree = new buildGithubTree();
