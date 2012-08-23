@@ -33,9 +33,6 @@ define(function () {
 
 	return {
 
-		test : function (el) {
-			console.log(_prefixed('transform', el.style));
-		},
 
 		/*
 		* Transforms the given element.
