@@ -7,7 +7,8 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		xhr.send();
 		xhr.onreadystatechange = function (e) {
 			if (e.target.status === 200 && e.target.readyState === 4) {
-				callback(JSON.parse(e.target.response));
+				var foo = function (data) { callback(data.data); };
+				eval(e.target.response);
 			}
 		};
 	};
@@ -131,7 +132,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		};
 
 		this.addBranch = function (array, item) {
-			ajax(item._links.self + '?cacheBust=' + (new Date()).getTime(), function (data) {
+			ajax(item._links.self + '?callback=foo&cacheBust=' + (new Date()).getTime(), function (data) {
 				self.processTree(array.children, data, array);
 			});
 		};
@@ -161,7 +162,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			repo = 'dannyx0/fil';
 		}
 
-		ajax('https://api.github.com/repos/' + repo + '/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
+		ajax('https://api.github.com/repos/' + repo + '/contents/?callback=foo&cacheBust=' + (new Date()).getTime(), function (data) {
 			self.processTree(self.struct, data, {
 				item : {
 					pos : {
