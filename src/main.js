@@ -23,6 +23,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 		this.struct = [];
 		this.c = {};
 		this.el = document.getElementById('tooltip');
+		this.timeout = false;
 
 		this.distance = function (f, t) {
 			var dx = f.x - t.x,
@@ -111,7 +112,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			this.el.textContent = item.name;
 			this.el.textContent +=  (item.type === "dir") ? '/' : '';
-			this.el.style.backgroundColor = 'rgb(' + (255 / item.pos.level) + ',0,0)';
+			this.el.style.backgroundColor = 'rgb(' + ((item.pos.level / self.level) * 255) + ',0,0)';
 
 			tr.transform(this.el, {
 				translateX : c.x + 'px',
