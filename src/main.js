@@ -37,14 +37,14 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 		};
 
-		this.setItemPosition = function (item, pos) {
+		this.setItemPosition = function (item, pos, angle) {
 			var self = this;
 
 			item.pos = {
 				x : pos.x,
 				y : pos.y,
-				_x : (5) * (Math.random() < 0.5 ? -1 : 1),
-				_y : (5) * (Math.random() < 0.5 ? -1 : 1),
+				_x : angle._x,
+				_y : angle._y,
 				level : self.level
 			};
 			return item;
@@ -54,6 +54,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			var item,
 				parent,
+				angle,
 				i;
 
 			if (first) {
@@ -65,13 +66,23 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 				item = items[i].item;
 				parent = items[i].parent.item;
 
+				angle = ((i / items.length) * 360);
+
+				item.angle = {
+					_x : 10 * Math.cos(angle * Math.PI / 180),
+					_y : 10 * Math.sin(angle * Math.PI / 180)
+				};
+
 				if (!item.pos) {
-					self.setItemPosition(item, parent.pos);
+					self.setItemPosition(item, parent.pos, item.angle);
 				}
 
-				if (this.distance(item.pos, parent.pos) <= 50) {
-					item.pos.x += item.pos._x + parent.pos._x;
-					item.pos.y += item.pos._y + parent.pos._y;
+				item.max = (item.type === 'dir' ? 100 : 50) + items.length;
+				item.distance = this.distance(item.pos, parent.pos);
+
+				if (item.distance <= item.max) {
+					item.pos.x += item.pos._x;
+					item.pos.y += item.pos._y;
 				}
 
 				if (items[i].children) {
@@ -84,6 +95,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			item = null;
 			parent = null;
+			angle = null;
 			i = null;
 		};
 
@@ -265,7 +277,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			// prev = curr;
 
-			if (f > 120) {
+			if (f > 30) {
 				// frame.stop();
 			}
 
