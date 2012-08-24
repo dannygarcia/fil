@@ -55,7 +55,8 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			var item,
 				parent,
 				angle,
-				i;
+				i,
+				rand = Math.random() * 360;
 
 			if (first) {
 				self.level = 0;
@@ -66,7 +67,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 				item = items[i].item;
 				parent = items[i].parent.item;
 
-				angle = ((i / items.length) * 360);
+				angle = ((i / items.length) * 360) + rand;
 
 				item.angle = {
 					_x : 10 * Math.cos(angle * Math.PI / 180),
@@ -79,6 +80,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 				item.max = (item.type === 'dir' ? 100 : 50) + items.length;
 				item.distance = this.distance(item.pos, parent.pos);
+				// item.diff = Math.ceil(item.max - item.distance);
 
 				if (item.distance <= item.max) {
 					item.pos.x += item.pos._x;
@@ -96,6 +98,7 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 			item = null;
 			parent = null;
 			angle = null;
+			rand = null;
 			i = null;
 		};
 
@@ -277,9 +280,9 @@ require(["src/Canvas", "src/Input", "src/Pen", "src/Frame", "src/Transformer"], 
 
 			// prev = curr;
 
-			if (f > 30) {
+			// if (f > 30) {
 				// frame.stop();
-			}
+			// }
 
 		};
 
