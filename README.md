@@ -5,10 +5,53 @@ FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of
 [Check out a quick example](http://dannyx0.github.com/fil/)!
 
 ## Quick Start
- 1. First, include the minified source or just the specific components you need.
+Be sure to include the minified source or just the specific components you need.
 
 ````html
-<script src="fil.min.js"></script>
+<script src="https://raw.github.com/dannyx0/fil/master/fil.min.js"></script>
+<div id="canvas"></div>
+````
+
+````javascript
+// On document ready...
+// Create a new instance of each module (as needed).
+var cvs = new fil.Canvas(),
+	input = new fil.Input(),
+	pen = new fil.Pen(),
+	frame = new fil.Frame(),
+	tr = new fil.Transformer(),
+	el = document.getElementById('canvas'); // The <canvas> element container.
+
+// Canvas requires initialization, but all settings are optional.
+cvs.init({
+  container : el,
+  ratio : false
+});
+
+// Set some constant values.
+var ctx = cvs.context(),
+	WIDTH = cvs.width,
+	HEIGHT = cvs.height;
+
+// Pen does not require initialization, but it does require a canvas context.
+pen.context(ctx);
+
+// Grab input on the canvas container.
+// Input automatically supports mobile touch events as well.
+input.init({
+  element : el
+});
+
+input.ontapmove = function (average) {
+  // Do some things when the input moves.
+};
+
+// Start requestAnimationFrame
+frame.start();
+frame.step = function (f) {
+	// Do more awesome things!
+};
+
 ````
 
 ## Components
