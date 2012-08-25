@@ -8,12 +8,10 @@
 var fil = fil || {};
 fil.Transformer = function () {
 
-	/*
 	// Contains method borrowed from Modernizr
 	this._contains = function contains( str, substr ) {
 		return !!~('' + str).indexOf(substr);
 	};
-	*/
 
 	// Prefixing method borrowed from Modernizr
 	this._prefixed = function (prop, style) {
@@ -21,14 +19,11 @@ fil.Transformer = function () {
 		var prefixes = 'Webkit Moz O ms'.split(' '),
 			ucProp  = prop.charAt(0).toUpperCase() + prop.slice(1),
 			props = (prop + ' ' + prefixes.join(ucProp + ' ') + ucProp).split(' '),
-			i, property,
-			contains = function (str, substr) {
-				return !!~('' + str).indexOf(substr);
-			};
+			i, property;
 
 		for (i in props ) {
 			property = props[i];
-			if ( !contains(property, "-") && style[property] !== undefined ) {
+			if ( !this._contains(property, "-") && style[property] !== undefined ) {
 				return property;
 			}
 		}
@@ -62,7 +57,7 @@ fil.Transformer = function () {
 				transformation += transform + '(' + transforms[transform] +') ';
 			}
 
-			el.style[_prefixed('transform', el.style)] = transformation;
+			el.style[this._prefixed('transform', el.style)] = transformation;
 
 		},
 
@@ -79,7 +74,7 @@ fil.Transformer = function () {
 
 			this.el = el;
 
-			el.style[_prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
+			el.style[this._prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
 
 		}
 
