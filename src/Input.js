@@ -5,7 +5,8 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+var fil = fil || {};
+fil.Input = function () {
 
 
 	/*
@@ -22,7 +23,7 @@ define(function () {
 	var _options = {
 			element : document.body,
 			preventDefault : false,
-			ratio : true
+			ratio : false
 		},
 		_ratio = 1,
 		_touch = false,
@@ -280,4 +281,4 @@ define(function () {
 
 
 	};
-});
+};

@@ -5,7 +5,8 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+var fil = fil || {};
+fil.Transformer = function () {
 
 	// Contains method borrowed from Modernizr
 	this._contains = function contains( str, substr ) {
@@ -79,4 +80,4 @@ define(function () {
 
 
 	};
-});
+};

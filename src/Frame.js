@@ -5,7 +5,8 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+fil = fil || {};
+fil.Frame = function () {
 
 
 	return {
@@ -76,4 +77,4 @@ define(function () {
 
 
 	};
-});
+};

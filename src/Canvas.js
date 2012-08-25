@@ -5,7 +5,8 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+var fil = fil || {};
+fil.Canvas = function () {
 
 
 	/*
@@ -28,7 +29,7 @@ define(function () {
 			width : "auto",
 			height : "auto",
 			resize : false,
-			ratio : true
+			ratio : false
 		},
 		_canvas = null,
 		_context = null,
@@ -177,4 +178,4 @@ define(function () {
 
 
 	};
-});
+};
