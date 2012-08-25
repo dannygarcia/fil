@@ -8,6 +8,9 @@
 var fil = fil || {};
 fil.Transformer = function () {
 
+	// TODO: Look into not using this.
+	var self = this;
+
 	// Contains method borrowed from Modernizr
 	this._contains = function contains( str, substr ) {
 		return !!~('' + str).indexOf(substr);
@@ -31,6 +34,8 @@ fil.Transformer = function () {
 		return false;
 
 	};
+
+	console.log(this);
 
 	return {
 
@@ -57,7 +62,8 @@ fil.Transformer = function () {
 				transformation += transform + '(' + transforms[transform] +') ';
 			}
 
-			el.style[this._prefixed('transform', el.style)] = transformation;
+			console.log(this, self);
+			el.style[self._prefixed('transform', el.style)] = transformation;
 
 		},
 
@@ -74,7 +80,7 @@ fil.Transformer = function () {
 
 			this.el = el;
 
-			el.style[this._prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
+			el.style[self._prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
 
 		}
 
