@@ -8,6 +8,7 @@
 var fil = fil || {};
 fil.Transformer = function () {
 
+
 	// TODO: Look into not using this.
 	var self = this;
 
@@ -35,7 +36,6 @@ fil.Transformer = function () {
 
 	};
 
-	console.log(this);
 
 	return {
 
