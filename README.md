@@ -66,7 +66,7 @@ frame.step = function (f) {
 
 Latest test results can be found via the example on http://dannyx0.github.com/fil/test/.
 
-Browser-based [nodeunit](https://github.com/caolan/nodeunit) testing is preferred because these are front-end libraries and require the `window` global, `<canvas>` support and, of course, the DOM.
+Browser-based [nodeunit](https://github.com/caolan/nodeunit) testing is preferred because these are front-end libraries and therefore require the `window` global, `<canvas>` support and, of course, the DOM.
 
 ## To-do
 
