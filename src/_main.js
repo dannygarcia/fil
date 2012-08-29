@@ -5,4 +5,12 @@
  * https://github.com/dannyx0/fil/
  */
 var fil = fil || {};
-/* Copyright Placeholder */
+fil.ready = function (fn) {
+	this.call(fn);
+};
+var readyStateCheckInterval = setInterval(function() {
+	if (document.readyState === "complete") {
+		fil.ready();
+		clearInterval(readyStateCheckInterval);
+	}
+}, 10);
