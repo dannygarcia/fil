@@ -62,9 +62,15 @@ frame.step = function (f) {
 * [Frame.js](https://github.com/dannyx0/fil/wiki/Frame.js) is a simple polyfill for `window.requestAnimationFrame`. [View Source](https://github.com/dannyx0/fil/blob/master/src/Frame.js)
 * [Transformer.js](https://github.com/dannyx0/fil/wiki/Transformer.js) simplifies CSS transformations. [View Source](https://github.com/dannyx0/fil/blob/master/src/Transformer.js)
 
+## Testing
+
+Latest test results can be found via the example on http://dannyx0.github.com/fil/test/.
+
+Browser-based [nodeunit](https://github.com/caolan/nodeunit) testing is preferred because these are front-end libraries and therefore require the `window` global, `<canvas>` support and, of course, the DOM.
+
 ## To-do
 
- * Add Testing
+ * Resolve [self-created issues](https://github.com/dannyx0/fil/issues?state=open).
  * Add more drawing features to Pen.js
 
 ## MIT License
