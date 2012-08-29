@@ -5,9 +5,7 @@
  * https://github.com/dannyx0/fil/
  */
 var fil = fil || {};
-fil.ready = function (fn) {
-	this.call(fn);
-};
+fil.ready = function () {};
 var readyStateCheckInterval = setInterval(function() {
 	if (document.readyState === "complete") {
 		fil.ready();
