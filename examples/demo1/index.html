@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>FIL Example</title>
+
+		<meta name="description" content="FIL Example" />
+		<meta name="author" content="Danny Garcia" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- <link rel="stylesheet" href="static/css/style.css" /> -->
+
+		<script src="../../fil.min.js"></script>
+
+	</head>
+	<body>
+
+		<div id="canvas"></div>
+
+<script>
+
+// On document ready...
+// Create a new instance of each module (as needed).
+var cvs = new fil.Canvas(),
+    input = new fil.Input(),
+    pen = new fil.Pen(),
+    frame = new fil.Frame(),
+    tr = new fil.Transformer(),
+    el = document.getElementById('canvas'); // The <canvas> element container.
+
+// Canvas requires initialization, but all settings are optional.
+cvs.init({
+  container : el,
+  ratio : false
+});
+
+// Set some constant values.
+var ctx = cvs.context(),
+    WIDTH = cvs.width,
+    HEIGHT = cvs.height;
+
+// Pen does not require initialization, but it does require a canvas context.
+pen.context(ctx);
+
+// Grab input on the canvas container.
+// Input automatically supports mobile touch events as well.
+input.init({
+  element : el
+});
+
+input.ontapmove = function (average) {
+  // Do some things when the input moves.
+};
+
+// Start requestAnimationFrame
+frame.start();
+frame.step = function (f) {
+    // Do more awesome things!
+};
+
+</script>
+
+	</body>
+</html>

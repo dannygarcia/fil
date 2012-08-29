@@ -5,7 +5,8 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+var fil = fil || {};
+fil.Canvas = function () {
 
 
 	/*
@@ -28,7 +29,7 @@ define(function () {
 			width : "auto",
 			height : "auto",
 			resize : false,
-			ratio : true
+			ratio : false
 		},
 		_canvas = null,
 		_context = null,
@@ -59,7 +60,7 @@ define(function () {
 			}
 
 			// Append a <canvas> node to the container.
-			canvas = _options.container.appendChild(document.createElement('canvas'));
+			_canvas = _options.container.appendChild(document.createElement('canvas'));
 
 			// Set the canvas context.
 			this.context(_options.context);
@@ -69,6 +70,8 @@ define(function () {
 			if (_options.resize) {
 				window.addEventListener('resize', this.resize, false);
 			}
+
+			return this;
 
 		},
 
@@ -81,15 +84,19 @@ define(function () {
 		options : function (newOptions) {
 
 			if (typeof newOptions === 'undefined') {
-				return _options;
+				newOptions = _options;
+			} else {
+
+				// Check customized options and set them.
+				for (var option in _options) {
+					if (_options.hasOwnProperty(option) && typeof newOptions[option] !== 'undefined') {
+						_options[option] = newOptions[option];
+					}
+				}
+
 			}
 
-			// Check customized options and set them.
-			for (var option in _options) {
-				if (_options.hasOwnProperty(option) && typeof newOptions[option] !== 'undefined') {
-					_options[option] = newOptions[option];
-				}
-			}
+			return newOptions;
 
 		},
 
@@ -104,7 +111,7 @@ define(function () {
 				return context;
 			}
 
-			context = canvas.getContext(ctx);
+			context = _canvas.getContext(ctx);
 			return context;
 
 		},
@@ -136,8 +143,8 @@ define(function () {
 			this.height = context.canvas.height = height;
 
 			// Set the actual canvas width and height.
-			canvas.style.width = width / _ratio;
-			canvas.style.height = height / _ratio;
+			_canvas.style.width = width / _ratio;
+			_canvas.style.height = height / _ratio;
 
 		},
 
@@ -158,7 +165,7 @@ define(function () {
 			}
 
 			// Remove canvas node.
-			_options.container.removeChild(canvas);
+			_options.container.removeChild(_canvas);
 
 			// Reset variables.
 			_options = {
@@ -168,13 +175,16 @@ define(function () {
 				height : "auto",
 				resize : false
 			};
-			canvas = null;
-			context = null;
+			_canvas = null;
+			_context = null;
 			_ratio = 1;
-			dimensions = {};
 
 		}
 
 
 	};
-});
+};
+
+if (typeof module !== 'undefined') {
+	module.exports = fil.Canvas;
+}

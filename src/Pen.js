@@ -5,7 +5,8 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+var fil = fil || {};
+fil.Pen = function () {
 
 
 	return {
@@ -30,6 +31,7 @@ define(function () {
 			}
 
 			this.ctx = context;
+			return this.ctx;
 
 		},
 
@@ -50,7 +52,7 @@ define(function () {
 			}
 
 			if (width) {
-				ctx.lineWidth(width);
+				ctx.lineWidth = width;
 			}
 
 		},
@@ -85,4 +87,4 @@ define(function () {
 
 
 	};
-});
+};

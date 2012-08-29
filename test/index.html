@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>FIL Tests</title>
+		<script src="nodeunit.js"></script>
+		<script src="../fil.min.js"></script>
+		<script src="tests/canvas.js.test.js"></script>
+		<script src="tests/frame.js.test.js"></script>
+		<script src="tests/input.js.test.js"></script>
+		<script src="tests/pen.js.test.js"></script>
+		<script src="tests/transformer.js.test.js"></script>
+
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<header class="hero-unit page-header">
+						<h1>FIL Tests</h1>
+					</header>
+					<div id="target">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var readyStateCheckInterval = setInterval(function() {
+				if (document.readyState === "complete") {
+					nodeunit.run(tests);
+					clearInterval(readyStateCheckInterval);
+				}
+			}, 10);
+		</script>
+	</body>
+</html>

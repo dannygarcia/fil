@@ -5,7 +5,12 @@
  * https://github.com/dannyx0/fil/
  */
 
-define(function () {
+var fil = fil || {};
+fil.Transformer = function () {
+
+
+	// TODO: Look into not using this.
+	var self = this;
 
 	// Contains method borrowed from Modernizr
 	this._contains = function contains( str, substr ) {
@@ -30,6 +35,7 @@ define(function () {
 		return false;
 
 	};
+
 
 	return {
 
@@ -56,12 +62,12 @@ define(function () {
 				transformation += transform + '(' + transforms[transform] +') ';
 			}
 
-			el.style[_prefixed('transform', el.style)] = transformation;
+			el.style[self._prefixed('transform', el.style)] = transformation;
 
 		},
 
 		/*
-		* Transforms the origin of the given element.
+		* Transforms the origin of the given element. ~!Untested
 		* @param el [dom]		-	Dom element to originTransform.
 		* @param origin [obj]	-	X / Y origin object.
 		*/
@@ -73,10 +79,10 @@ define(function () {
 
 			this.el = el;
 
-			el.style[_prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
+			el.style[self._prefixed('transformOrigin', el.style)] = originX + ' ' + originY;
 
 		}
 
 
 	};
-});
+};
