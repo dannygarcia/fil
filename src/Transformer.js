@@ -62,13 +62,12 @@ fil.Transformer = function () {
 				transformation += transform + '(' + transforms[transform] +') ';
 			}
 
-			console.log(this, self);
 			el.style[self._prefixed('transform', el.style)] = transformation;
 
 		},
 
 		/*
-		* Transforms the origin of the given element.
+		* Transforms the origin of the given element. ~!Untested
 		* @param el [dom]		-	Dom element to originTransform.
 		* @param origin [obj]	-	X / Y origin object.
 		*/

@@ -23,9 +23,11 @@ fil.Input = function () {
 	var _options = {
 			element : document.body,
 			preventDefault : false,
-			ratio : false
+			ratio : false,
+			forceTouch : false
 		},
 		_ratio = 1,
+		_bound = false,
 		_touch = false,
 		// Proxy pulled from jQuery
 		_pxy = function (fn, context) {
@@ -80,9 +82,11 @@ fil.Input = function () {
 			}
 
 			// Check touch support.
-			_touch = this.supportsTouch();
+			_touch = (_options.forceTouch || this.supportsTouch());
 
 			this.bindAllInputs();
+
+			return this;
 
 		},
 
@@ -159,6 +163,7 @@ fil.Input = function () {
 		// They are called separately so we can pass the
 		// specific type to this.setCoordinates() easily.
 		bindAllInputs : function () {
+			_bound = true;
 			this.bindTapStart();
 			this.bindTapMove();
 			this.bindTapEnd();
@@ -166,9 +171,12 @@ fil.Input = function () {
 
 
 		unbindAllInputs : function () {
-			this.unbindTapStart();
-			this.unbindTapMove();
-			this.unbindTapEnd();
+			if (_bound) {
+				this.unbindTapStart();
+				this.unbindTapMove();
+				this.unbindTapEnd();
+			}
+			_bound = false;
 		},
 
 

@@ -31,6 +31,7 @@ fil.Pen = function () {
 			}
 
 			this.ctx = context;
+			return this.ctx;
 
 		},
 
