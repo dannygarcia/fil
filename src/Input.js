@@ -113,7 +113,7 @@ fil.Input = function () {
 		},
 
 
-		setCoordinates : function (e, type) {
+		setCoordinates : function (e) {
 
 			if (_options.preventDefault) {
 				e.preventDefault();
