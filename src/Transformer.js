@@ -43,8 +43,7 @@ fil.Transformer = function () {
 		/*
 		* Transforms the given element.
 		* @param el [dom]			-	Dom element to transform.
-		* @param transforms [array]	-	Array of transformation objects:
-		*		{ 'rotateX' : '3deg' }
+		* @param transforms [a/o]	-	Array or Object of transformation objects.
 		*/
 		transform : function (el, transforms) {
 
@@ -57,9 +56,16 @@ fil.Transformer = function () {
 			var transform,
 				transformation = '';
 
-			// { 'property' : 'value', 'property' : 'value' }
-			for (transform in transforms) {
-				transformation += transform + '(' + transforms[transform] +') ';
+			if (transforms instanceof Array) {
+				// [{ property : 'property', value : 'value' }, { property : 'property', value : 'value' }]
+				for (var i = 0; i < transforms.length; i++) {
+					transformation += transforms[i].property + '(' + transforms[i].value +') ';
+				}
+			} else {
+				// { 'property' : 'value', 'property' : 'value' }
+				for (transform in transforms) {
+					transformation += transform + '(' + transforms[transform] +') ';
+				}
 			}
 
 			el.style[self._prefixed('transform', el.style)] = transformation;
