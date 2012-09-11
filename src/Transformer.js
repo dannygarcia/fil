@@ -75,7 +75,8 @@ fil.Transformer = function () {
 		/*
 		* Transforms the origin of the given element. ~!Untested
 		* @param el [dom]		-	Dom element to originTransform.
-		* @param origin [obj]	-	X / Y origin object.
+		* @param originX [int]	-	X origin int or %.
+		* @param originY [int]	-	Y origin int or %.
 		*/
 		transformOrigin : function (el, originX, originY) {
 
