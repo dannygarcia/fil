@@ -60,27 +60,40 @@ fil.Pen = function () {
 
 		/*
 		* Draws a simple line.
-		* @param from [object]	-	Holds x & y from coordinates.
-		* @param to [object]	-	Holds x & y to coordinates.
+		* @param from [o/a]	-	Holds x & y from coordinates.
+		* @param to [o/a]	-	Holds x & y to coordinates.
+		* @param type [str] -	object | array type.
 		*/
-		line : function (from, to) {
+		line : function (from, to, type) {
+			type = type || 'object';
 			var ctx = this.context();
 			ctx.beginPath();
-			ctx.moveTo(from.x, from.y);
-			ctx.lineTo(to.x, to.y);
+			if (type === 'array') {
+				ctx.moveTo(from[0], from[1]);
+				ctx.lineTo(to[0], to[1]);
+			} else {
+				ctx.moveTo(from.x, from.y);
+				ctx.lineTo(to.x, to.y);
+			}
 			ctx.stroke();
 		},
 
 
 		/*
 		* Draws a centered circle.
-		* @param pos [object]	-	Holds x & y position coordinates.
+		* @param pos [o/a]		-	Holds x & y position coordinates.
 		* @param size [int]		-	Circle size.
+		* @param type [str]		-	object | array type.
 		*/
-		circle : function (pos, size) {
+		circle : function (pos, size, type) {
+			type = type || 'object';
 			var ctx = this.context();
 			ctx.beginPath();
-			ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2, true);
+			if (type === 'array') {
+				ctx.arc(pos[0], pos[1], size, 0, Math.PI * 2, true);
+			} else {
+				ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2, true);
+			}
 			ctx.closePath();
 			ctx.fill();
 		}

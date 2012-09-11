@@ -32,13 +32,19 @@ var pen_tests = [
 		'Draw Line' : function (test) {
 			test.doesNotThrow(function () {
 				pen.line({ x : 0, y : 0}, { x : 10, y : 10});
-			}, undefined, "Draw line.");
+			}, undefined, "Draw line from object.");
+			test.doesNotThrow(function () {
+				pen.line([0, 0], [10, 10], 'array');
+			}, undefined, "Draw line from array.");
 			test.done();
 		},
 		'Draw Circle' : function (test) {
 			test.doesNotThrow(function () {
 				pen.circle({ x : 0, y : 0}, 5);
-			}, undefined, "Draw circle.");
+			}, undefined, "Draw circle from object.");
+			test.doesNotThrow(function () {
+				pen.circle([0, 0], 5, 'array');
+			}, undefined, "Draw circle from array.");
 			test.done();
 		}
 	}

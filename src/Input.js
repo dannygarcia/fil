@@ -24,7 +24,8 @@ fil.Input = function () {
 			element : document.body,
 			preventDefault : false,
 			ratio : false,
-			forceTouch : false
+			forceTouch : false,
+			type : 'object'
 		},
 		_ratio = 1,
 		_bound = false,
@@ -119,28 +120,33 @@ fil.Input = function () {
 			}
 
 			var c = [],
-				sum = { x : 0, y : 0 };
+				sum = (_options.type === 'object') ? { x : 0, y : 0 } : [0, 0];
 
 			if (_touch) {
 
 				// For each touch input, generate its coordinates.
 				for (var i = 0; i < e.touches.length; i++) {
-					c[i] = {
+					c[i] = (_options.type === 'object') ? {
 						x : e.touches[i].pageX * _ratio,
 						y : e.touches[i].pageY * _ratio
-					};
+					} : [e.touches[i].pageX * _ratio, e.touches[i].pageY * _ratio];
 					// sum+=c[i];
-					sum.x+=c[i].x;
-					sum.y+=c[i].y;
+					if (_options.type === 'object') {
+						sum.x+=c[i].x;
+						sum.y+=c[i].y;
+					} else {
+						sum[0]+=c[i][0];
+						sum[1]+=c[i][1];
+					}
 				}
 
 			} else {
 
 				// Regular Mouse Event Coordinates
-				c[0] = {
+				c[0] = (_options.type === 'object') ? {
 					x : e.pageX * _ratio,
 					y : e.pageY * _ratio
-				};
+				} : [e.pageX * _ratio, e.pageY * _ratio];
 
 				sum = c[0];
 
@@ -150,10 +156,10 @@ fil.Input = function () {
 			this.inputs = c;
 
 			// Update the average value.
-			this.average = {
+			this.average = (_options.type === 'object') ? {
 				x : Math.ceil(sum.x / c.length),
 				y : Math.ceil(sum.y / c.length)
-			};
+			} : [Math.ceil(sum[0] / c.length), Math.ceil(sum[1] / c.length)];
 
 		},
 
