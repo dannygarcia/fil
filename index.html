@@ -10,14 +10,14 @@
 
 	<link rel="stylesheet" href="style.css">
 
-	<script src="https://raw.github.com/dannyx0/fil/master/fil.min.js"></script>
+	<script src="https://raw.github.com/dannygarcia/fil/master/fil.min.js"></script>
 </head>
 <body>
 
 	<div id="canvas"></div>
 
 	<div id="description">
-		<h1><a href="https://github.com/dannyx0/fil/">FIL</a>: Front-end Interactive Libraries</h1>
+		<h1><a href="https://github.com/dannygarcia/fil/">FIL</a>: Front-end Interactive Libraries</h1>
 		<form id="form">
 			<input type="text" id="user" placeholder="GitHub User" required /><input type="text" id="repo" placeholder="User's Repo" required /><input type="submit" value="go" />
 		</form>
@@ -25,7 +25,7 @@
 
 	<div id="tooltip"></div>
 
-<iframe src="http://ghbtns.com/github-btn.html?user=dannyx0&repo=fil&type=watch&size=large&count=true"
+<iframe src="http://ghbtns.com/github-btn.html?user=dannygarcia&repo=fil&type=watch&size=large&count=true"
   allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"
   style="
     position: fixed;
@@ -221,7 +221,7 @@
 			};
 
 			if (typeof repo === 'undefined') {
-				repo = 'dannyx0/fil';
+				repo = 'dannygarcia/fil';
 			}
 
 			ajax('https://api.github.com/repos/' + repo + '/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
