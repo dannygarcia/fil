@@ -2,13 +2,13 @@
 
 FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components. Each module is loosely coupled and has no external dependencies.
 
-[Check out a quick example](http://dannyx0.github.com/fil/)!
+[Check out a quick example](http://dannygarcia.github.com/fil/)!
 
 ## Quick Start
 Be sure to include the minified source or just the specific components you need.
 
 ````html
-<script src="https://raw.github.com/dannyx0/fil/master/fil.min.js"></script>
+<script src="https://raw.github.com/dannygarcia/fil/master/fil.min.js"></script>
 <div id="canvas"></div>
 ````
 
@@ -56,21 +56,21 @@ frame.step = function (f) {
 
 ## Components
 
-* [Canvas.js](https://github.com/dannyx0/fil/wiki/Canvas.js) is a clean and easy `<canvas>` helper. [View Source](https://github.com/dannyx0/fil/blob/master/src/Canvas.js)
-* [Input.js](https://github.com/dannyx0/fil/wiki/Input.js) captures and normalizes mouse & touch inputs. [View Source](https://github.com/dannyx0/fil/blob/master/src/Input.js)
-* [Pen.js](https://github.com/dannyx0/fil/wiki/Pen.js) helps with drawing lines, cirlces and other shapes in canvas. [View Source](https://github.com/dannyx0/fil/blob/mast\er/src/Pen.js)
-* [Frame.js](https://github.com/dannyx0/fil/wiki/Frame.js) is a simple polyfill for `window.requestAnimationFrame`. [View Source](https://github.com/dannyx0/fil/blob/master/src/Frame.js)
-* [Transformer.js](https://github.com/dannyx0/fil/wiki/Transformer.js) simplifies CSS transformations. [View Source](https://github.com/dannyx0/fil/blob/master/src/Transformer.js)
+* [Canvas.js](https://github.com/dannygarcia/fil/wiki/Canvas.js) is a clean and easy `<canvas>` helper. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Canvas.js)
+* [Input.js](https://github.com/dannygarcia/fil/wiki/Input.js) captures and normalizes mouse & touch inputs. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Input.js)
+* [Pen.js](https://github.com/dannygarcia/fil/wiki/Pen.js) helps with drawing lines, cirlces and other shapes in canvas. [View Source](https://github.com/dannygarcia/fil/blob/mast\er/src/Pen.js)
+* [Frame.js](https://github.com/dannygarcia/fil/wiki/Frame.js) is a simple polyfill for `window.requestAnimationFrame`. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Frame.js)
+* [Transformer.js](https://github.com/dannygarcia/fil/wiki/Transformer.js) simplifies CSS transformations. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Transformer.js)
 
 ## Testing
 
-Latest test results can be found via the example on http://dannyx0.github.com/fil/test/.
+Latest test results can be found via the example on http://dannygarcia.github.com/fil/test/.
 
 Browser-based [nodeunit](https://github.com/caolan/nodeunit) testing is preferred because these are front-end libraries and therefore require the `window` global, `<canvas>` support and, of course, the DOM.
 
 ## To-do
 
- * Resolve [self-created issues](https://github.com/dannyx0/fil/issues?state=open).
+ * Resolve [self-created issues](https://github.com/dannygarcia/fil/issues?state=open).
  * Add more drawing features to Pen.js
 
 ## MIT License
