@@ -1,0 +1,339 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>fil : Front-end Interactive Libraries</title>
+	<meta name="author" content="Danny Garcia">
+	<meta name="viewport" content="user-scalable=no">
+
+	<link rel="stylesheet" href="style.css">
+
+	<script src="https://raw.github.com/dannyx0/fil/master/fil.min.js"></script>
+</head>
+<body>
+
+	<div id="canvas"></div>
+
+	<div id="description">
+		<h1><a href="https://github.com/dannyx0/fil/">FIL</a>: Front-end Interactive Libraries</h1>
+		<form id="form">
+			<input type="text" id="user" placeholder="GitHub User" required /><input type="text" id="repo" placeholder="User's Repo" required /><input type="submit" value="go" />
+		</form>
+	</div>
+
+	<div id="tooltip"></div>
+
+<iframe src="http://ghbtns.com/github-btn.html?user=dannyx0&repo=fil&type=watch&size=large&count=true"
+  allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"
+  style="
+    position: fixed;
+    bottom: 20px;
+    left: 20px;"></iframe>
+
+	<script>
+
+		var cvs, input, pen, frame, tr;
+
+		cvs = new fil.Canvas();
+		input = new fil.Input();
+		pen = new fil.Pen();
+		frame = new fil.Frame();
+		tr = new fil.Transformer();
+
+		// Custom ajax function to avoid using jQuery (°-°)
+		var ajax = function (url, callback) {
+			url = "http://jsonp.jit.su/?url=" + url;
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
+			xhr.send();
+			xhr.onreadystatechange = function (e) {
+				if (e.target.status === 200 && e.target.readyState === 4) {
+					callback(JSON.parse(e.target.response));
+				}
+			};
+		};
+
+		var buildGithubTree = function (repo) {
+
+			var self = this,
+				distance = 70,
+				rad = 20;
+
+			this.level = 0;
+			this.struct = [];
+			this.c = {};
+			this.el = document.getElementById('tooltip');
+			this.timeout = false;
+
+			this.distance = function (f, t) {
+				var dx = f.x - t.x,
+					dy = f.y - t.y;
+				return Math.sqrt( dx * dx + dy * dy );
+			};
+
+			this.update = function (c) {
+				this.c = c;
+				this.changePosition(this.struct, true);
+				this.drawTree(this.struct);
+
+			};
+
+			this.setItemPosition = function (item, pos, angle) {
+				var self = this;
+
+				item.pos = {
+					x : pos.x,
+					y : pos.y,
+					_x : angle._x,
+					_y : angle._y,
+					level : self.level
+				};
+				return item;
+			};
+
+			this.changePosition = function (items, first) {
+
+				var item,
+					parent,
+					angle,
+					i,
+					rand = Math.random() * 360;
+
+				if (first) {
+					self.level = 0;
+				}
+
+				for (i = 0; i < items.length; i++) {
+
+					item = items[i].item;
+					parent = items[i].parent.item;
+
+					angle = ((i / items.length) * 360) + rand;
+
+					item.angle = {
+						_x : 10 * Math.cos(angle * Math.PI / 180),
+						_y : 10 * Math.sin(angle * Math.PI / 180)
+					};
+
+					if (!item.pos) {
+						self.setItemPosition(item, parent.pos, item.angle);
+					}
+
+					item.max = (item.type === 'dir' ? 100 : 50) + items.length;
+					item.distance = this.distance(item.pos, parent.pos);
+					// item.diff = Math.ceil(item.max - item.distance);
+
+					if (item.distance <= item.max) {
+						item.pos.x += item.pos._x;
+						item.pos.y += item.pos._y;
+					}
+
+					if (items[i].children) {
+						self.level += 1;
+						self.changePosition(items[i].children);
+					}
+				}
+
+				// this.drawTree(items);
+
+				item = null;
+				parent = null;
+				angle = null;
+				rand = null;
+				i = null;
+			};
+
+			this.showToolTip = function (c, item) {
+
+				c.x = Math.ceil(c.x);
+				c.y = Math.ceil(c.y);
+
+				pen.circle(c, 12);
+
+				this.el.textContent = item.name;
+				this.el.textContent +=  (item.type === "dir") ? '/' : '';
+				this.el.style.backgroundColor = 'rgb(' + ((item.pos.level / self.level) * 255) + ',0,0)';
+
+				tr.transform(this.el, {
+					translateX : c.x + 'px',
+					translateY : c.y + 'px'
+				});
+
+			};
+
+			this.drawTree = function (items) {
+				for (var i = 0; i < items.length; i++) {
+
+					var node = items[i];
+
+					if (node.item.pos) {
+
+						if (typeof this.c.x !== 'undefined' && typeof this.c.y !== 'undefined') {
+
+							if ((this.c.x > node.item.pos.x - rad && this.c.x < node.item.pos.x + rad) && (this.c.y > node.item.pos.y - rad && this.c.y < node.item.pos.y + rad)) {
+								this.showToolTip(node.item.pos, node.item);
+							}
+
+						}
+
+						pen.stroke('rgb(' + Math.ceil((node.item.pos.level / self.level) * 255) + ',0,0)');
+						pen.fill('rgb(' + Math.ceil((node.item.pos.level / self.level) * 255) + ',0,0)');
+						pen.line(node.item.pos, node.parent.item.pos);
+						pen.circle(node.item.pos, node.item.type === 'dir' ? 10 : 5);
+					}
+
+					if (node.children) {
+						self.drawTree(node.children);
+					}
+
+					item = null;
+
+				}
+			};
+
+			this.addBranch = function (array, item) {
+				ajax(item._links.self + '?cacheBust=' + (new Date()).getTime(), function (data) {
+					self.processTree(array.children, data, array);
+				});
+			};
+
+			this.processTree = function (array, items, parent) {
+
+				var item, i;
+
+				for (i = 0; i < items.length; i++) {
+
+					item = items[i];
+
+					array[i] = { item : item };
+
+					if (item.type === 'dir') {
+						array[i].children = [];
+						self.addBranch(array[i], array[i].item);
+					}
+
+					array[i].parent = parent ? parent : false;
+
+				}
+
+			};
+
+			if (typeof repo === 'undefined') {
+				repo = 'dannyx0/fil';
+			}
+
+			ajax('https://api.github.com/repos/' + repo + '/contents/?cacheBust=' + (new Date()).getTime(), function (data) {
+				self.processTree(self.struct, data, {
+					item : {
+						pos : {
+							x : cvs.width / 2,
+							y : cvs.height / 2,
+							_x : 0,
+							_y : 0,
+							level : 0
+						}
+					}
+				});
+			});
+
+		};
+
+		var node = function (pos, item) {
+
+			this.pos = pos;
+
+			this.draw = function (ctx) {
+
+				pen.circle(this.pos, item.type === 'folder' ? 10 : 5);
+
+			};
+
+		};
+
+		var init = function () {
+
+			var canvasEl = document.getElementById('canvas'),
+				form = document.getElementById('form'),
+				tree,
+				hash = false;
+
+			form.addEventListener('submit', function (e) {
+				e.preventDefault();
+
+				var user = document.getElementById('user').value,
+					repo = document.getElementById('repo').value,
+					dir = user + '/' + repo;
+
+				tree = new buildGithubTree(dir);
+
+				// set url
+				window.location.hash = dir;
+
+			}, false);
+
+			// Start tracking mouse input on the whole doc.
+			input.init({
+				ratio : false
+			});
+
+			// Initialize the canvas.
+			cvs.init({
+				container : canvasEl,
+				ratio : false
+			});
+
+			// Prep the context.
+			var ctx = cvs.context();
+			ctx.lineStroke = '#000';
+			pen.context(ctx);
+
+			var prev = {},
+				curr = {};
+
+			// input.ontapstart = function (average) {
+			//	pen.circle(average, 10);
+			// };
+
+			input.ontapmove = function (average) {
+				curr = average;
+			};
+
+			// input.ontapend = function (average) {
+			//	pen.circle(average, 10);
+			// };
+
+			if (window.location.hash) {
+				hash = window.location.hash.replace('#', '');
+				tree = new buildGithubTree(hash);
+				document.getElementById('user').value = hash.split('/')[0];
+				document.getElementById('repo').value = hash.split('/')[1];
+			} else {
+				tree = new buildGithubTree();
+			}
+
+
+			frame.start();
+			frame.step = function (f) {
+
+				cvs.clear();
+
+				tree.update(curr);
+
+				// prev = curr;
+
+				// if (f > 30) {
+					// frame.stop();
+				// }
+
+			};
+
+		};
+
+		init();
+
+	</script>
+
+</body>
+</html>
