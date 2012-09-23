@@ -11,6 +11,7 @@ var pen_tests = [
 			test.done();
 		},
 		'Get / Set Context' : function (test) {
+			var cvs = new fil.Canvas().init();
 			var newCtx = pen.context(cvs.context());
 			test.deepEqual(newCtx, pen.context(), "Gotten and Set contexts are equal.");
 			test.done();

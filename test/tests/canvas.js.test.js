@@ -3,16 +3,17 @@
 */
 
 var tests = tests || [];
-var cvs = new fil.Canvas();
 var canvas_tests = [
 	{
 		'Load Canvas.js' : function (test) {
+			var cvs = new fil.Canvas();
 			test.ok(typeof cvs === 'object', "Canvas.js should load an object.");
 			test.done();
 		},
 		'Initialize With Options' : function (test) {
 
-			var init = cvs.init({
+			var cvs = new fil.Canvas(),
+				init = cvs.init({
 				context : '2d',
 				container : document.body,
 				width : 'auto',
@@ -32,7 +33,8 @@ var canvas_tests = [
 		},
 		'Get / Set Options' : function (test) {
 
-			var newOptions = cvs.options({
+			var cvs = new fil.Canvas(),
+				newOptions = cvs.options({
 				context : '3d',
 				container : document.body,
 				width : 300,
@@ -52,8 +54,8 @@ var canvas_tests = [
 		},
 		'Initialize Without Options' : function (test) {
 
-			cvs.destroy();
-			var init = cvs.init();
+			var cvs = new fil.Canvas(),
+				init = cvs.init();
 
 			// Primary initialization passed.
 			test.ok(init, "Canvas.js should initialize without options.");
@@ -66,25 +68,29 @@ var canvas_tests = [
 		},
 		'Get / Set Context' : function (test) {
 
-			var ctx = cvs.context('2d');
+			var cvs = new fil.Canvas().init(),
+				ctx = cvs.context('2d');
 			test.equal(ctx, cvs.context(), "Canvas context should be equal.");
 			test.done();
 
 		},
 		'Resize' : function (test) {
 			test.doesNotThrow(function () {
+				var cvs = new fil.Canvas().init();
 				cvs.resize(undefined, 10, 10);
 			}, undefined, "Should resize element.");
 			test.done();
 		},
 		'Clear' : function (test) {
 			test.doesNotThrow(function () {
+				var cvs = new fil.Canvas().init();
 				cvs.clear();
 			}, undefined, "Should clear the canvas.");
 			test.done();
 		},
 		'Destroy Canvas.js' : function (test) {
 			test.doesNotThrow(function () {
+				var cvs = new fil.Canvas().init();
 				cvs.destroy();
 			}, undefined, "Should destroy the canvas and reset defaults.");
 			test.done();

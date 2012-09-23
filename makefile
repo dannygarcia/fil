@@ -5,7 +5,7 @@ _INPUT = src/Input.js
 _PEN = src/Pen.js
 _TRANSFORMER = src/Transformer.js
 
-all: uglify-each uglify
+all: uglify-each uglify concat
 
 uglify-each:
 	uglifyjs -o src/Canvas.min.js $(_CANVAS)
@@ -16,3 +16,9 @@ uglify-each:
 
 uglify:
 	cat $(main) $(_CANVAS) $(_FRAME) $(_INPUT) $(_PEN) $(_TRANSFORMER) | uglifyjs -o fil.min.js
+
+concat: 
+	cat $(main) $(_CANVAS) $(_FRAME) $(_INPUT) $(_PEN) $(_TRANSFORMER) > fil.js
+
+testing:
+	cd test | python -m SimpleHTTPServer 9999
