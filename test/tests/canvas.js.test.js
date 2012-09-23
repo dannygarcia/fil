@@ -96,6 +96,3 @@ exports.Canvas = {
 		test.done();
 	}
 };
-
-// Combine with existing list.
-// tests = tests.concat(canvas_tests);

@@ -2,9 +2,10 @@
 * Frame.js Tests
 */
 
+frame = new fil.Frame();
 exports.Frame = {
 	'Load Frame.js' : function (test) {
-		test.ok(typeof frame === 'object', "Frame.js should load an object.");
+		test.ok(typeof this.frame === 'object', "Frame.js should load an object.");
 		test.done();
 	},
 	'Start & Stop' : function (test) {
