@@ -68,7 +68,7 @@
 				_canvas = _options.container.appendChild(document.createElement('canvas'));
 
 				// Set the canvas context.
-				this.context(_options.context);
+				_context = this.context(_options.context);
 
 				// Bind to window resizing.
 				this.resize(null, _options.width, _options.height);
@@ -111,6 +111,7 @@
 			* @param ctx [obj]	-	Canvas Context Object
 			*/
 			context : function (ctx) {
+
 
 				if (typeof ctx === 'undefined') {
 					return _context;
@@ -170,7 +171,10 @@
 				}
 
 				// Remove canvas node.
-				_options.container.removeChild(_canvas);
+				// console.log(_options.container, _canvas);
+				if (_canvas) {
+					_options.container.removeChild(_canvas);
+				}
 
 				// Reset variables.
 				_options = {
@@ -195,7 +199,7 @@
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
 		
-		this.define("moment", [], function () {
+		this.define("Canvas", [], function () {
 			return fil.Canvas;
 		});
 
