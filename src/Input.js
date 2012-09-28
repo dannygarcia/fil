@@ -283,7 +283,7 @@
 				// This is a quick and simple test as borrowed from Modernizr.
 				// It does not include the deeper CSS Media Query test.
 				// Use Modernizr.touch for a more thorough test.
-				return (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+				return (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
 
 			},
 
