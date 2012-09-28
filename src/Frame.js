@@ -37,13 +37,13 @@
 
 					if (typeof window.requestAnimationFrame === 'undefined') {
 
-						window.requestAnimationFrame = (function(){
+						window.requestAnimationFrame = (function () {
 							return  window.requestAnimationFrame       ||
 									window.webkitRequestAnimationFrame ||
 									window.mozRequestAnimationFrame    ||
 									window.oRequestAnimationFrame      ||
 									window.msRequestAnimationFrame     ||
-									function( callback ){
+									function (callback) {
 										window.setTimeout(callback, 1000 / 60);
 									};
 						})();
@@ -52,7 +52,7 @@
 
 					if (typeof window.cancelAnimationFrame === 'undefined') {
 
-						window.cancelAnimationFrame = (function(){
+						window.cancelAnimationFrame = (function () {
 							return  window.cancelAnimationFrame       ||
 									window.webkitCancelAnimationFrame ||
 									window.mozCancelAnimationFrame    ||

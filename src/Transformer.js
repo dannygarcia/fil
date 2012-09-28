@@ -17,7 +17,7 @@
 		var self = this;
 
 		// Contains method borrowed from Modernizr
-		this._contains = function contains( str, substr ) {
+		this._contains = function contains(str, substr) {
 			return !!~('' + str).indexOf(substr);
 		};
 
@@ -31,7 +31,7 @@
 
 			for (i in props ) {
 				property = props[i];
-				if ( !this._contains(property, "-") && style[property] !== undefined ) {
+				if (!this._contains(property, "-") && style[property] !== undefined) {
 					return property;
 				}
 			}
@@ -63,12 +63,12 @@
 				if (transforms instanceof Array) {
 					// [{ property : 'property', value : 'value' }, { property : 'property', value : 'value' }]
 					for (var i = 0; i < transforms.length; i++) {
-						transformation += transforms[i].property + '(' + transforms[i].value +') ';
+						transformation += transforms[i].property + '(' + transforms[i].value + ') ';
 					}
 				} else {
 					// { 'property' : 'value', 'property' : 'value' }
 					for (transform in transforms) {
-						transformation += transform + '(' + transforms[transform] +') ';
+						transformation += transform + '(' + transforms[transform] + ') ';
 					}
 				}
 
