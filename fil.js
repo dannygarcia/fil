@@ -255,13 +255,13 @@ var fil = fil || {};
 
 					if (typeof window.requestAnimationFrame === 'undefined') {
 
-						window.requestAnimationFrame = (function(){
+						window.requestAnimationFrame = (function () {
 							return  window.requestAnimationFrame       ||
 									window.webkitRequestAnimationFrame ||
 									window.mozRequestAnimationFrame    ||
 									window.oRequestAnimationFrame      ||
 									window.msRequestAnimationFrame     ||
-									function( callback ){
+									function (callback) {
 										window.setTimeout(callback, 1000 / 60);
 									};
 						})();
@@ -270,7 +270,7 @@ var fil = fil || {};
 
 					if (typeof window.cancelAnimationFrame === 'undefined') {
 
-						window.cancelAnimationFrame = (function(){
+						window.cancelAnimationFrame = (function () {
 							return  window.cancelAnimationFrame       ||
 									window.webkitCancelAnimationFrame ||
 									window.mozCancelAnimationFrame    ||
@@ -356,22 +356,22 @@ var fil = fil || {};
 			_pxy = function (fn, context) {
 				var tmp, args, proxy;
 
-				if ( typeof context === "string" ) {
-					tmp = fn[ context ];
+				if (typeof context === "string") {
+					tmp = fn[context];
 					context = fn;
 					fn = tmp;
 				}
 
 				// Quick check to determine if target is callable, in the spec
 				// this throws a TypeError, but we will just return undefined.
-				if ( typeof fn !== 'function' ) {
+				if (typeof fn !== 'function') {
 					return undefined;
 				}
 
 				// Simulated bind
-				args = Array.prototype.slice.call( arguments, 2 );
-				proxy = function() {
-					return fn.apply( context, args.concat( Array.prototype.slice.call( arguments ) ) );
+				args = Array.prototype.slice.call(arguments, 2);
+				proxy = function () {
+					return fn.apply(context, args.concat(Array.prototype.slice.call(arguments)));
 				};
 
 				// Set the guid of unique handler to the same of original handler, so it can be removed
@@ -454,11 +454,11 @@ var fil = fil || {};
 						} : [e.touches[i].pageX * _ratio, e.touches[i].pageY * _ratio];
 						// sum+=c[i];
 						if (_options.type === 'object') {
-							sum.x+=c[i].x;
-							sum.y+=c[i].y;
+							sum.x += c[i].x;
+							sum.y += c[i].y;
 						} else {
-							sum[0]+=c[i][0];
-							sum[1]+=c[i][1];
+							sum[0] += c[i][0];
+							sum[1] += c[i][1];
 						}
 					}
 
@@ -782,7 +782,7 @@ var fil = fil || {};
 		var self = this;
 
 		// Contains method borrowed from Modernizr
-		this._contains = function contains( str, substr ) {
+		this._contains = function contains(str, substr) {
 			return !!~('' + str).indexOf(substr);
 		};
 
@@ -796,7 +796,7 @@ var fil = fil || {};
 
 			for (i in props ) {
 				property = props[i];
-				if ( !this._contains(property, "-") && style[property] !== undefined ) {
+				if (!this._contains(property, "-") && style[property] !== undefined) {
 					return property;
 				}
 			}
@@ -828,12 +828,12 @@ var fil = fil || {};
 				if (transforms instanceof Array) {
 					// [{ property : 'property', value : 'value' }, { property : 'property', value : 'value' }]
 					for (var i = 0; i < transforms.length; i++) {
-						transformation += transforms[i].property + '(' + transforms[i].value +') ';
+						transformation += transforms[i].property + '(' + transforms[i].value + ') ';
 					}
 				} else {
 					// { 'property' : 'value', 'property' : 'value' }
 					for (transform in transforms) {
-						transformation += transform + '(' + transforms[transform] +') ';
+						transformation += transform + '(' + transforms[transform] + ') ';
 					}
 				}
 

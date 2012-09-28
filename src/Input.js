@@ -37,22 +37,22 @@
 			_pxy = function (fn, context) {
 				var tmp, args, proxy;
 
-				if ( typeof context === "string" ) {
-					tmp = fn[ context ];
+				if (typeof context === "string") {
+					tmp = fn[context];
 					context = fn;
 					fn = tmp;
 				}
 
 				// Quick check to determine if target is callable, in the spec
 				// this throws a TypeError, but we will just return undefined.
-				if ( typeof fn !== 'function' ) {
+				if (typeof fn !== 'function') {
 					return undefined;
 				}
 
 				// Simulated bind
-				args = Array.prototype.slice.call( arguments, 2 );
-				proxy = function() {
-					return fn.apply( context, args.concat( Array.prototype.slice.call( arguments ) ) );
+				args = Array.prototype.slice.call(arguments, 2);
+				proxy = function () {
+					return fn.apply(context, args.concat(Array.prototype.slice.call(arguments)));
 				};
 
 				// Set the guid of unique handler to the same of original handler, so it can be removed
@@ -135,11 +135,11 @@
 						} : [e.touches[i].pageX * _ratio, e.touches[i].pageY * _ratio];
 						// sum+=c[i];
 						if (_options.type === 'object') {
-							sum.x+=c[i].x;
-							sum.y+=c[i].y;
+							sum.x += c[i].x;
+							sum.y += c[i].y;
 						} else {
-							sum[0]+=c[i][0];
-							sum[1]+=c[i][1];
+							sum[0] += c[i][0];
+							sum[1] += c[i][1];
 						}
 					}
 
