@@ -1,13 +1,23 @@
 <html>
 	<head>
 		<title>FIL Tests</title>
+		<script>
+		var exports = {};
+		</script>
 		<script src="nodeunit.js"></script>
-		<script src="../fil.min.js"></script>
+		<script src="../src/Canvas.js"></script>
+		<script src="../src/Frame.js"></script>
+		<script src="../src/Input.js"></script>
+		<script src="../src/Pen.js"></script>
+		<script src="../src/Transformer.js"></script>		
 		<script src="tests/canvas.js.test.js"></script>
 		<script src="tests/frame.js.test.js"></script>
 		<script src="tests/input.js.test.js"></script>
 		<script src="tests/pen.js.test.js"></script>
 		<script src="tests/transformer.js.test.js"></script>
+		<!--
+		<script src="../fil.min.js"></script>
+		-->
 
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="style.css">
@@ -28,7 +38,9 @@
 		<script>
 			var readyStateCheckInterval = setInterval(function() {
 				if (document.readyState === "complete") {
-					nodeunit.run(tests);
+					nodeunit.run({
+						'set' : exports
+					});
 					clearInterval(readyStateCheckInterval);
 				}
 			}, 10);
