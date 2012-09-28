@@ -178,7 +178,6 @@ var fil = fil || {};
 				}
 
 				// Remove canvas node.
-				// console.log(_options.container, _canvas);
 				if (_canvas) {
 					_options.container.removeChild(_canvas);
 				}
