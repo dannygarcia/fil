@@ -264,7 +264,7 @@ var fil = fil || {};
 									function (callback) {
 										window.setTimeout(callback, 1000 / 60);
 									};
-						})();
+						}());
 
 					}
 
@@ -276,7 +276,7 @@ var fil = fil || {};
 									window.mozCancelAnimationFrame    ||
 									window.oCancelAnimationFrame      ||
 									window.msCancelAnimationFrame;
-						})();
+						}());
 
 					}
 
