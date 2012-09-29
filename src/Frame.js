@@ -46,7 +46,7 @@
 									function (callback) {
 										window.setTimeout(callback, 1000 / 60);
 									};
-						})();
+						}());
 
 					}
 
@@ -58,7 +58,7 @@
 									window.mozCancelAnimationFrame    ||
 									window.oCancelAnimationFrame      ||
 									window.msCancelAnimationFrame;
-						})();
+						}());
 
 					}
 
@@ -87,7 +87,7 @@
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Frame", [], function () {
 			return fil.Frame;
 		});

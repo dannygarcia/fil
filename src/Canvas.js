@@ -112,7 +112,6 @@
 			*/
 			context : function (ctx) {
 
-
 				if (typeof ctx === 'undefined') {
 					return _context;
 				}
@@ -197,7 +196,7 @@
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Canvas", [], function () {
 			return fil.Canvas;
 		});

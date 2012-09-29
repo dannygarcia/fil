@@ -104,7 +104,7 @@
 
 
 		};
-		
+
 	};
 
 	// Attach to the global fil object.
@@ -112,7 +112,7 @@
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Pen", [], function () {
 			return fil.Pen;
 		});

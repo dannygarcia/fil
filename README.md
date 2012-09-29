@@ -56,11 +56,11 @@ frame.step = function (f) {
 
 ## Components
 
-* [Canvas.js](https://github.com/dannygarcia/fil/wiki/Canvas.js) is a clean and easy `<canvas>` helper. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Canvas.js)
-* [Input.js](https://github.com/dannygarcia/fil/wiki/Input.js) captures and normalizes mouse & touch inputs. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Input.js)
-* [Pen.js](https://github.com/dannygarcia/fil/wiki/Pen.js) helps with drawing lines, cirlces and other shapes in canvas. [View Source](https://github.com/dannygarcia/fil/blob/mast\er/src/Pen.js)
-* [Frame.js](https://github.com/dannygarcia/fil/wiki/Frame.js) is a simple polyfill for `window.requestAnimationFrame`. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Frame.js)
-* [Transformer.js](https://github.com/dannygarcia/fil/wiki/Transformer.js) simplifies CSS transformations. [View Source](https://github.com/dannygarcia/fil/blob/master/src/Transformer.js)
+* [Canvas.js](https://github.com/dannygarcia/fil/blob/master/src/Canvas.js) is a clean and easy `<canvas>` helper. [View Documentation](https://github.com/dannygarcia/fil/wiki/Canvas.js)
+* [Input.js](https://github.com/dannygarcia/fil/blob/master/src/Input.js) captures and normalizes mouse & touch inputs. [View Documentation](https://github.com/dannygarcia/fil/wiki/Input.js)
+* [Pen.js](https://github.com/dannygarcia/fil/blob/master/src/Pen.js) helps with drawing lines, cirlces and other shapes in canvas. [View Documentation](https://github.com/dannygarcia/fil/wiki/Pen.js)
+* [Frame.js](https://github.com/dannygarcia/fil/blob/master/src/Frame.js) is a simple polyfill for `window.requestAnimationFrame`. [View Documentation](https://github.com/dannygarcia/fil/wiki/Frame.js)
+* [Transformer.js](https://github.com/dannygarcia/fil/blob/master/src/Transformer.js) simplifies CSS transformations. [View Documentation](https://github.com/dannygarcia/fil/wiki/Transformer.js)
 
 ## Testing
 
