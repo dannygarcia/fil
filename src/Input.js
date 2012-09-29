@@ -306,7 +306,7 @@
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Input", [], function () {
 			return fil.Input;
 		});

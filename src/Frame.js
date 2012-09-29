@@ -87,7 +87,7 @@
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Frame", [], function () {
 			return fil.Frame;
 		});

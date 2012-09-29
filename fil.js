@@ -119,7 +119,6 @@ var fil = fil || {};
 			*/
 			context : function (ctx) {
 
-
 				if (typeof ctx === 'undefined') {
 					return _context;
 				}
@@ -204,7 +203,7 @@ var fil = fil || {};
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Canvas", [], function () {
 			return fil.Canvas;
 		});
@@ -305,7 +304,7 @@ var fil = fil || {};
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Frame", [], function () {
 			return fil.Frame;
 		});
@@ -625,7 +624,7 @@ var fil = fil || {};
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Input", [], function () {
 			return fil.Input;
 		});
@@ -743,7 +742,7 @@ var fil = fil || {};
 
 
 		};
-		
+
 	};
 
 	// Attach to the global fil object.
@@ -751,7 +750,7 @@ var fil = fil || {};
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Pen", [], function () {
 			return fil.Pen;
 		});
@@ -868,7 +867,7 @@ var fil = fil || {};
 
 	// Look for AMD
 	if (typeof this.define === "function" && this.define.amd) {
-		
+
 		this.define("Transformer", [], function () {
 			return fil.Transformer;
 		});
