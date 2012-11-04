@@ -45,5 +45,11 @@ exports.Pen = {
 			pen.circle([0, 0], 5, 'array');
 		}, undefined, "Draw circle from array.");
 		test.done();
+	},
+	'Draw Rectangle' : function (test) {
+		test.doesNotThrow(function () {
+			pen.rectangle(0, 0, 10, 10);
+		}, undefined, "Draw rectangle.");
+		test.done();
 	}
 };

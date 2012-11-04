@@ -42,9 +42,8 @@
 
 			fill : function (color) {
 				var ctx = this.context();
-
 				ctx.fillStyle = color;
-
+				ctx = null;
 			},
 
 
@@ -80,6 +79,7 @@
 					ctx.lineTo(to.x, to.y);
 				}
 				ctx.stroke();
+				ctx = null;
 			},
 
 
@@ -100,6 +100,27 @@
 				}
 				ctx.closePath();
 				ctx.fill();
+				ctx = null;
+			},
+
+
+			/*
+			* Draws a rectangle centered at a position.
+			* You should probably just use ctx.fillRect
+			*/
+			rectangle : function (pos, width, height, type) {
+				type = type || 'object';
+				var ctx = this.context();
+				if (type === 'array') {
+					pos[0] -= (width / 2);
+					pos[1] -= (height / 2);
+					ctx.fillRect(pos[0], pos[1], width, height);
+				} else {
+					pos.x -= (width / 2);
+					pos.y -= (height / 2);
+					ctx.fillRect(pos.x, pos.y, width, height);
+				}
+				ctx = null;
 			}
 
 
