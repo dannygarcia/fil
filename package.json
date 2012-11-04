@@ -1,0 +1,35 @@
+{
+	"name": "FIL",
+	"version": "1.5.2",
+	"description": "FIL, pronounced \"Phill\", is a collection of libraries built for the purpose of facilitating the development of interactive client-side components.",
+	"main": "fil.js",
+	"directories": {
+		"example": "examples",
+		"test": "test"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"grunt": "~0.3.17",
+		"grunt-mocha": "latest"
+	},
+	"scripts": {
+		"test": "grunt test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/dannygarcia/fil.git"
+	},
+	"keywords": [
+		"fil",
+		"interactive",
+		"collection",
+		"canvas",
+		"dom",
+		"requestanimationframe",
+		"context",
+		"transform"
+	],
+	"author": "Danny Garcia",
+	"license": "MIT"
+}
