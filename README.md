@@ -1,5 +1,7 @@
 # FIL – Front-end Interactive Libraries
 
+# **FIL IS OLD 'N BUSTED, [FIT IS NEW HOTNESS](https://github.com/dannygarcia/fit)**
+
 FIL, *pronounced "Phill"*, is a collection of libraries built for the purpose of facilitating the development of interactive client-side components. Each module is loosely coupled and has no external dependencies.
 
 [Check out a quick example](http://dannygarcia.github.com/fil/)!
